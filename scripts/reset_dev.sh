@@ -1,0 +1,1 @@
+RAILS_ENV=development rails db:drop && rails db:create && rails db:migrate
