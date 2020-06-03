@@ -4,6 +4,7 @@ Rails.application.routes.draw do
       resources :users do
         collection do
           post "/login" => "users#login"
+          get "/me" => "users#me"
         end
       end
     end
