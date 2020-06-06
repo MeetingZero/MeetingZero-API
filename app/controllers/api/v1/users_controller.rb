@@ -60,6 +60,30 @@ class Api::V1::UsersController < ApplicationController
     }
   end
 
+  def forgot_password
+    user = User
+    .where(email: params[:email])
+    .first
+
+    if !user
+      return render :json => { email: ["not found"] }, status: 404
+    end
+
+    user.password_reset_token = loop do
+      random_token = SecureRandom.urlsafe_base64(nil, false)
+
+      break random_token unless User.exists?(password_reset_token: random_token)
+    end
+
+    user.save
+
+    UserMailer
+    .forgot_password(user.password_reset_token)
+    .deliver_now
+
+    head 201
+  end
+
   private
 
   def user_params

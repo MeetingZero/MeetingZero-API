@@ -6,6 +6,7 @@ class CreateUsers < ActiveRecord::Migration[6.0]
       t.string :email
       t.string :password
       t.string :password_digest
+      t.string :password_reset_token
 
       t.timestamps
     end
