@@ -1,4 +1,4 @@
 class ApplicationMailer < ActionMailer::Base
-  default from: 'info@meetingzero.net'
+  default from: 'MeetingZero <info@meetingzero.net>'
   layout 'mailer'
 end
