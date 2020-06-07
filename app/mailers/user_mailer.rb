@@ -1,7 +1,13 @@
 class UserMailer < ApplicationMailer
-  def forgot_password(forgot_password_token)
-    @forgot_password_token = forgot_password_token
+  def activate_account(user)
+    @user = user
 
-    mail(to: "arsood@gmail.com", subject: "MeetingZero - Password Reset")
+    mail(to: user.email, subject: "MeetingZero - Activate Account")
+  end
+
+  def forgot_password(user)
+    @user = user
+
+    mail(to: user.email, subject: "MeetingZero - Password Reset")
   end
 end

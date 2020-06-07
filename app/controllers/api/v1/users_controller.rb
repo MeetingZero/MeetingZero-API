@@ -78,7 +78,7 @@ class Api::V1::UsersController < ApplicationController
     user.save
 
     UserMailer
-    .forgot_password(user.password_reset_token)
+    .forgot_password(user)
     .deliver_now
 
     head 201
