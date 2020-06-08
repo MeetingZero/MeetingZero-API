@@ -17,9 +17,9 @@ class Api::V1::UsersController < ApplicationController
         'HS256'
       )
 
-      render :json => { token: token }, status: 201
+      return render :json => { token: token }, status: 201
     else
-      render :json => new_user.errors, status: 400
+      return render :json => new_user.errors, status: 400
     end
   end
 
@@ -29,13 +29,17 @@ class Api::V1::UsersController < ApplicationController
     .first
 
     if !user
-      head 401
+      return render :json => { user: ["is not found"] }, status: 401
     else
       authenticated = user.authenticate(params[:password])
 
       if !authenticated
-        head 401
+        return render :json => { user: ["is not found"] }, status: 401
       else
+        if user.account_activation_token
+          return render :json => { user: ["is not verified"] }, status: 401
+        end
+
         token = JWT.encode(
           {
             id: user.id,
@@ -47,7 +51,7 @@ class Api::V1::UsersController < ApplicationController
           'HS256'
         )
 
-        render :json => { token: token }, status: 200
+        return render :json => { token: token }, status: 200
       end
     end
   end

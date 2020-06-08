@@ -1,1 +1,1 @@
-<h1>Account Activation Token: <%= @user.account_activation_token %></h1>
+<a href="<%= Rails.application.credentials.base_url %>/users/activate-account?token=<%= @user.account_activation_token %>">Activate account</a>
