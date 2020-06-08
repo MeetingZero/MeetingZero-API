@@ -10,4 +10,10 @@ Rails.application.routes.draw do
       end
     end
   end
+
+  resources :users, only: [] do
+    collection do
+      get "/activate-account" => "users#activate_account"
+    end
+  end
 end
