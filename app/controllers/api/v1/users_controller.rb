@@ -88,6 +88,24 @@ class Api::V1::UsersController < ApplicationController
     head 201
   end
 
+  def reset_password
+    user = User
+    .where(email: params[:email], password_reset_token: params[:token])
+    .first
+
+    if !user
+      return render :json => { email: ["not found"] }, status: 404
+    end
+
+    if params[:password] != params[:confirm_password]
+      return render :json => { passwords: ["do not match"] }, status: 400
+    end
+
+    user.update(password: params[:password], password_reset_token: nil)
+
+    head 200
+  end
+
   private
 
   def user_params

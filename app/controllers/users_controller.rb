@@ -8,7 +8,7 @@ class UsersController < ApplicationController
       return render :text => "No user found"
     end
 
-    user.update_attributes(account_activation_token: nil)
+    user.update(account_activation_token: nil)
 
     return redirect_to "#{Rails.application.credentials.web_app_url}/login?account_activated=true"
   end

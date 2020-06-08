@@ -1,1 +1,0 @@
-EDITOR="vi" rails credentials:edit

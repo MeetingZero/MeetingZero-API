@@ -6,6 +6,7 @@ Rails.application.routes.draw do
           post "/login" => "users#login"
           get "/me" => "users#me"
           post "/forgot-password" => "users#forgot_password"
+          post "/reset-password" => "users#reset_password"
         end
       end
     end
