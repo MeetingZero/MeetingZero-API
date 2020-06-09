@@ -1,0 +1,1 @@
+scp -r meetingzero_api arsood@192.168.2.73:/home/arsood/meetingzero_api
