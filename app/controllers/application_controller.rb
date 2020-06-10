@@ -10,7 +10,7 @@ class ApplicationController < ActionController::Base
       auth_token,
       Rails.application.credentials.jwt_secret,
       true,
-      { algorith: 'HS256' }
+      { algorithm: 'HS256' }
     )
 
     if !decoded_token
