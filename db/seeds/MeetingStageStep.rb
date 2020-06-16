@@ -1,4 +1,15 @@
 MeetingStage
+.where(key: "WHATS_WORKING")
+.first
+.meeting_stage_steps
+.create(
+  key: "WHATS_WORKING_RESPONSES",
+  name: "Responses",
+  default_time_limit: 300,
+  description: "What's working responses"
+)
+
+MeetingStage
 .where(key: "PROBLEMS")
 .first
 .meeting_stage_steps
