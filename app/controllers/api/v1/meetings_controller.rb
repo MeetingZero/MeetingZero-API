@@ -1,10 +1,12 @@
 class Api::V1::MeetingsController < ApplicationController
   skip_before_action :verify_authenticity_token
+  before_action :authenticate_user
 
   def create
     ActiveRecord::Base.transaction do
       begin
         new_meeting = Meeting.create(
+          host_id: @current_user.id,
           purpose: params[:purpose]
         )
 
