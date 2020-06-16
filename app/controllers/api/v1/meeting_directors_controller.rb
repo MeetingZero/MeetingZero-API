@@ -1,4 +1,6 @@
 class Api::V1::MeetingDirectorsController < ApplicationController
+  before_action :authenticate_user
+
   def index
     meeting_directors = Meeting
     .find(params[:meeting_id])
