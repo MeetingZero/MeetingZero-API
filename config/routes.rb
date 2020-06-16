@@ -9,6 +9,8 @@ Rails.application.routes.draw do
           post "/reset-password" => "users#reset_password"
         end
       end
+
+      resources :meetings
     end
   end
 
