@@ -1,0 +1,13 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  meeting_stage_id: 1
+  key: MyString
+  name: MyString
+  default_time_limit: 1
+
+two:
+  meeting_stage_id: 1
+  key: MyString
+  name: MyString
+  default_time_limit: 1

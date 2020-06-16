@@ -10,7 +10,55 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_06_01_184247) do
+ActiveRecord::Schema.define(version: 2020_06_16_080229) do
+
+  create_table "meeting_directors", force: :cascade do |t|
+    t.integer "meeting_id"
+    t.integer "meeting_stage_id"
+    t.integer "meeting_stage_step_id"
+    t.boolean "completed", default: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "meeting_stage_steps", force: :cascade do |t|
+    t.integer "meeting_stage_id"
+    t.string "key"
+    t.string "name"
+    t.integer "default_time_limit"
+    t.text "description"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "meeting_stages", force: :cascade do |t|
+    t.string "key"
+    t.string "name"
+    t.text "description"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "meeting_template_stages", force: :cascade do |t|
+    t.integer "meeting_template_id"
+    t.integer "meeting_stage_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "meeting_templates", force: :cascade do |t|
+    t.string "key"
+    t.string "name"
+    t.text "description"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "meetings", force: :cascade do |t|
+    t.text "purpose"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
 
   create_table "users", force: :cascade do |t|
     t.string "first_name"
