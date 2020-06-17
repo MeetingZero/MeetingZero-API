@@ -67,6 +67,7 @@ ActiveRecord::Schema.define(version: 2020_06_16_080229) do
   end
 
   create_table "workshops", force: :cascade do |t|
+    t.string "workshop_token"
     t.integer "host_id"
     t.text "purpose"
     t.datetime "created_at", precision: 6, null: false
