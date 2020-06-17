@@ -1,1 +1,25 @@
-<a href="<%= Rails.application.credentials.base_url %>/users/activate-account?token=<%= @user.account_activation_token %>&email=<%= @user.email %>">Activate account</a>
+<img src="https://meetingzero.s3-us-west-2.amazonaws.com/logo.jpg" style="display: block; width: 100%; max-width: 100px; margin-left: auto; margin-right: auto; margin-top: 20px; margin-bottom: 20px;" />
+
+<p>
+  <%= @user.first_name %>,
+</p>
+
+<p>
+  Welcome to MeetingZero! Please click on the button to activate your account.
+</p>
+
+<p>
+  <a href="<%= Rails.application.credentials.base_url %>/users/activate-account?token=<%= @user.account_activation_token %>&email=<%= @user.email %>" style="display: block; width: 100%; background-color: #3F4089; padding: 20px; color: #FFF; text-align: center; text-decoration: none; box-sizing: border-box;">Click here to activate your account</a>
+</p>
+
+<p>
+  If you didn’t request this, ignore this email or reply and we can get this sorted out. Otherwise, reset your password using the above link. For your security, this link expires in one hour.
+</p>
+
+<p>
+  Thanks,
+</p>
+
+<p>
+  The MeetingZero Team
+</p>
