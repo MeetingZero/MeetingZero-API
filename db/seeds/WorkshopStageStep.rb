@@ -1,7 +1,7 @@
-MeetingStage
+WorkshopStage
 .where(key: "WHATS_WORKING")
 .first
-.meeting_stage_steps
+.workshop_stage_steps
 .create(
   key: "WHATS_WORKING_RESPONSES",
   name: "Responses",
@@ -9,10 +9,10 @@ MeetingStage
   description: "What's working responses"
 )
 
-MeetingStage
+WorkshopStage
 .where(key: "PROBLEMS")
 .first
-.meeting_stage_steps
+.workshop_stage_steps
 .create(
   key: "PROBLEMS_REPONSES",
   name: "Responses",
@@ -20,10 +20,10 @@ MeetingStage
   description: "Problem responses"
 )
 
-MeetingStage
+WorkshopStage
 .where(key: "PROBLEMS")
 .first
-.meeting_stage_steps
+.workshop_stage_steps
 .create(
   key: "PROBLEMS_VOTE",
   name: "Vote",
@@ -31,4 +31,4 @@ MeetingStage
   description: "Problem voting"
 )
 
-puts "- Meeting Stage Steps Created -"
+puts "- Workshop Stage Steps Created -"

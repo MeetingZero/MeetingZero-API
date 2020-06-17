@@ -10,10 +10,10 @@ Rails.application.routes.draw do
         end
       end
 
-      resources :meetings do
-        resources :director, controller: :meeting_directors do
+      resources :workshops do
+        resources :director, controller: :workshop_directors do
           collection do
-            get "/current" => "meeting_directors#current"
+            get "/current" => "workshop_directors#current"
           end
         end
       end

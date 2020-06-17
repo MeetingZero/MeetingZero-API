@@ -1,6 +1,6 @@
-class CreateMeetingStages < ActiveRecord::Migration[6.0]
+class CreateWorkshopStages < ActiveRecord::Migration[6.0]
   def change
-    create_table :meeting_stages do |t|
+    create_table :workshop_stages do |t|
       t.string :key
       t.string :name
       t.text :description

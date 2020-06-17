@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class MeetingStageStepTest < ActiveSupport::TestCase
+class WorkshopStageStepTest < ActiveSupport::TestCase
   # test "the truth" do
   #   assert true
   # end

@@ -1,6 +1,6 @@
-class CreateMeetings < ActiveRecord::Migration[6.0]
+class CreateWorkshops < ActiveRecord::Migration[6.0]
   def change
-    create_table :meetings do |t|
+    create_table :workshops do |t|
       t.integer :host_id
       t.text :purpose
 

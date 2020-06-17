@@ -1,7 +1,7 @@
-class CreateMeetingStageSteps < ActiveRecord::Migration[6.0]
+class CreateWorkshopStageSteps < ActiveRecord::Migration[6.0]
   def change
-    create_table :meeting_stage_steps do |t|
-      t.integer :meeting_stage_id
+    create_table :workshop_stage_steps do |t|
+      t.integer :workshop_stage_id
       t.string :key
       t.string :name
       t.integer :default_time_limit

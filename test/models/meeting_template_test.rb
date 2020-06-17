@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class MeetingTemplateTest < ActiveSupport::TestCase
+class WorkshopTemplateTest < ActiveSupport::TestCase
   # test "the truth" do
   #   assert true
   # end

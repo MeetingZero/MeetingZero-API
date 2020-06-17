@@ -4,18 +4,18 @@ template_stages = {
 
 template_stages.each do |template_key, stages|
   stages.each do |stage|
-    meeting_stage = MeetingStage
+    workshop_stage = WorkshopStage
     .where(key: stage)
     .first
 
-    MeetingTemplate
+    WorkshopTemplate
     .where(key: template_key)
     .first
-    .meeting_template_stages
+    .workshop_template_stages
     .create(
-      meeting_stage_id: meeting_stage.id
+      workshop_stage_id: workshop_stage.id
     )
   end
 end
 
-puts "- Meeting Template Stages Created -"
+puts "- Workshop Template Stages Created -"

@@ -1,4 +1,4 @@
-require_relative "./seeds/MeetingStage"
-require_relative "./seeds/MeetingStageStep"
-require_relative "./seeds/MeetingTemplate"
-require_relative "./seeds/MeetingTemplateStage"
+require_relative "./seeds/WorkshopStage"
+require_relative "./seeds/WorkshopStageStep"
+require_relative "./seeds/WorkshopTemplate"
+require_relative "./seeds/WorkshopTemplateStage"

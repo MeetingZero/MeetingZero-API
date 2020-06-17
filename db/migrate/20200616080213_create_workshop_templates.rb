@@ -1,6 +1,6 @@
-class CreateMeetingTemplates < ActiveRecord::Migration[6.0]
+class CreateWorkshopTemplates < ActiveRecord::Migration[6.0]
   def change
-    create_table :meeting_templates do |t|
+    create_table :workshop_templates do |t|
       t.string :key
       t.string :name
       t.text :description
