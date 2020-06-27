@@ -9,7 +9,7 @@ module ApplicationCable
     private
 
     def find_verified_user
-      auth_token = params[:token]
+      auth_token = request.params[:token]
     
       if !auth_token
         return reject_unauthorized_connection
