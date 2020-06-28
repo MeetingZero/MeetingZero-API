@@ -4,6 +4,7 @@ class CreateWorkshops < ActiveRecord::Migration[6.0]
       t.string :workshop_token
       t.integer :host_id
       t.text :purpose
+      t.datetime :started_at
 
       t.timestamps
     end
