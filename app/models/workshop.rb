@@ -1,5 +1,6 @@
 class Workshop < ApplicationRecord
   has_many :workshop_directors, dependent: :destroy
+  has_many :workshop_members, dependent: :destroy
   before_create :generate_workshop_token
 
   def generate_workshop_token

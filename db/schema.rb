@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_06_16_080229) do
+ActiveRecord::Schema.define(version: 2020_06_29_205410) do
 
   create_table "users", force: :cascade do |t|
     t.string "first_name"
@@ -29,6 +29,14 @@ ActiveRecord::Schema.define(version: 2020_06_16_080229) do
     t.integer "workshop_stage_id"
     t.integer "workshop_stage_step_id"
     t.boolean "completed", default: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "workshop_members", force: :cascade do |t|
+    t.integer "workshop_id"
+    t.integer "user_id"
+    t.boolean "online", default: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
