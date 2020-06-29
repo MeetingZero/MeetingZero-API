@@ -10,6 +10,17 @@ WorkshopStage
 )
 
 WorkshopStage
+.where(key: "WHATS_WORKING")
+.first
+.workshop_stage_steps
+.create(
+  key: "WHATS_WORKING_REVIEW",
+  name: "Review",
+  default_time_limit: 300,
+  description: "What's working review"
+)
+
+WorkshopStage
 .where(key: "PROBLEMS")
 .first
 .workshop_stage_steps
