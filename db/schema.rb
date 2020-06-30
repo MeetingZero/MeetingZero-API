@@ -78,6 +78,7 @@ ActiveRecord::Schema.define(version: 2020_06_29_205410) do
     t.string "workshop_token"
     t.integer "host_id"
     t.text "purpose"
+    t.datetime "date_time_planned"
     t.datetime "started_at"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
