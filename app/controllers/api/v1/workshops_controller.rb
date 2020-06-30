@@ -66,6 +66,12 @@ class Api::V1::WorkshopsController < ApplicationController
             .join_workshop(user, @current_user, new_workshop)
             .deliver_later
           else
+            WorkshopMember
+            .create(
+              workshop_id: new_workshop.id,
+              email: email
+            )
+
             WorkshopMailer
             .join_workshop_new_user(email, @current_user, new_workshop)
             .deliver_later

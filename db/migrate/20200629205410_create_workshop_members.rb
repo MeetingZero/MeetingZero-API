@@ -3,6 +3,7 @@ class CreateWorkshopMembers < ActiveRecord::Migration[6.0]
     create_table :workshop_members do |t|
       t.integer :workshop_id
       t.integer :user_id
+      t.string :email
       t.boolean :online, default: false
 
       t.timestamps

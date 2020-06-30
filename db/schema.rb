@@ -36,6 +36,7 @@ ActiveRecord::Schema.define(version: 2020_06_29_205410) do
   create_table "workshop_members", force: :cascade do |t|
     t.integer "workshop_id"
     t.integer "user_id"
+    t.string "email"
     t.boolean "online", default: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
