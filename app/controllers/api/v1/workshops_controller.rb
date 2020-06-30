@@ -1,6 +1,7 @@
 class Api::V1::WorkshopsController < ApplicationController
   skip_before_action :verify_authenticity_token
   before_action :authenticate_user
+  before_action :authorize_user_for_workshop, only: [:show]
 
   def create
     ActiveRecord::Base.transaction do
@@ -86,6 +87,29 @@ class Api::V1::WorkshopsController < ApplicationController
   end
 
   def show
+    workshop = Workshop
+    .where(workshop_token: params[:id])
+    .first
 
+    return render :json => workshop
+  end
+
+  private
+
+  def authorize_user_for_workshop
+    workshop = Workshop
+    .where(workshop_token: params[:id])
+    .first
+
+    workshop_member = WorkshopMember
+    .where(
+      user_id: @current_user.id,
+      workshop_id: workshop.id
+    )
+    .first
+
+    if !workshop_member
+      return render :json => { error: ["user is not part of this workshop"] }, status: 401
+    end
   end
 end
