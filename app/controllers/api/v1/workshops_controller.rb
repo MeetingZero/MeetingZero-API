@@ -46,6 +46,24 @@ class Api::V1::WorkshopsController < ApplicationController
           end
         end
 
+        emails = params[:emails]
+
+        emails.each do |email|
+          user = User
+          .where(email: email)
+          .first
+
+          if user
+            WorkshopMailer
+            .join_workshop(user, @current_user, new_workshop)
+            .deliver_later
+          else
+            WorkshopMailer
+            .join_workshop_new_user(email, @current_user, new_workshop)
+            .deliver_later
+          end
+        end 
+
         return render :json => new_workshop, status: 201
       rescue
         render :json => { error: ["could not create workshop"] }, status: 400

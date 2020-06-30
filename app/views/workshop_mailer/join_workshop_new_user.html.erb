@@ -1,0 +1,39 @@
+<img src="https://meetingzero.s3-us-west-2.amazonaws.com/logo.jpg" style="display: block; width: 100%; max-width: 100px; margin-left: auto; margin-right: auto; margin-top: 20px; margin-bottom: 20px;" />
+
+<p>
+  Hello,
+</p>
+
+<p>
+  <%= @organizer_user.first_name %> <%= @organizer_user.last_name %> wants you to join a workshop.
+</p>
+
+<p>
+  <%= @workshop.purpose %>
+</p>
+
+<p>
+  Please use this workshop ID: <%= @workshop.workshop_token %>
+</p>
+
+<p>
+  Get ready to become a problem-solving and decision-making superhero.
+</p>
+
+<p>
+  Enjoy!
+</p>
+
+<p>
+  The MeetingZero Team
+</p>
+
+<p>
+  P.S.
+  <br />
+  It seems that you do not currently have a MeetingZero account.
+</p>
+
+<p>
+  <a href="<%= Rails.application.credentials.web_app_url %>/sign-up" style="display: block; width: 100%; background-color: #3F4089; padding: 20px; color: #FFF; text-align: center; text-decoration: none; box-sizing: border-box;">Click here to create your MeetingZero account</a>
+</p>
