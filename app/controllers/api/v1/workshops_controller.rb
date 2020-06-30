@@ -91,6 +91,13 @@ class Api::V1::WorkshopsController < ApplicationController
     workshop = Workshop
     .where(workshop_token: params[:id])
     .first
+    .as_json
+
+    if @current_user.id == workshop["host_id"]
+      workshop.merge!({ is_host: true })
+    else
+      workshop.merge!({ is_host: false })
+    end
 
     return render :json => workshop
   end
