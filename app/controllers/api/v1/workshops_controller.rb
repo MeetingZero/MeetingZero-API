@@ -54,6 +54,12 @@ class Api::V1::WorkshopsController < ApplicationController
           .first
 
           if user
+            WorkshopMember
+            .create(
+              workshop_id: new_workshop.id,
+              user_id: user.id
+            )
+
             WorkshopMailer
             .join_workshop(user, @current_user, new_workshop)
             .deliver_later
@@ -62,7 +68,14 @@ class Api::V1::WorkshopsController < ApplicationController
             .join_workshop_new_user(email, @current_user, new_workshop)
             .deliver_later
           end
-        end 
+        end
+
+        # Add host to member list
+        WorkshopMember
+        .create(
+          workshop_id: new_workshop.id,
+          user_id: @current_user.id
+        )
 
         return render :json => new_workshop, status: 201
       rescue
@@ -70,5 +83,9 @@ class Api::V1::WorkshopsController < ApplicationController
         raise ActiveRecord::Rollback
       end
     end
+  end
+
+  def show
+
   end
 end

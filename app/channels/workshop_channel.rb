@@ -1,13 +1,31 @@
 class WorkshopChannel < ApplicationCable::Channel
   def subscribed
-    # stream_from "some_channel"
-    p "SUBSCRIBE"
-    p current_user
+    stream_from params[:workshop_token]
+
+    workshop = Workshop
+    .where(workshop_token: params[:workshop_token])
+    .first
+    
+    WorkshopMember
+    .where(
+      user_id: current_user.id,
+      workshop_id: workshop.id
+    )
+    .first
+    .update(online: true)
   end
 
   def unsubscribed
-    # Any cleanup needed when channel is unsubscribed
-    p "UNSUBSCRIBE"
-    p current_user
+    workshop = Workshop
+    .where(workshop_token: params[:workshop_token])
+    .first
+    
+    WorkshopMember
+    .where(
+      user_id: current_user.id,
+      workshop_id: workshop.id
+    )
+    .first
+    .update(online: false)
   end
 end

@@ -28,6 +28,26 @@ module ApplicationCable
 
       current_user = User.find(decoded_token[0]["id"])
 
+      workshop = Workshop
+      .where(workshop_token: request.params[:workshop_token])
+      .first
+
+      if !workshop
+        return reject_unauthorized_connection
+      end
+
+      # Make sure member is part of workshop
+      workshop_member = WorkshopMember
+      .where(
+        user_id: current_user.id,
+        workshop_id: workshop.id
+      )
+      .first
+
+      if !workshop_member
+        return reject_unauthorized_connection
+      end
+
       return current_user
     end
   end
