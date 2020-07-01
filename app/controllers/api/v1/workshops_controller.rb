@@ -1,7 +1,7 @@
 class Api::V1::WorkshopsController < ApplicationController
   skip_before_action :verify_authenticity_token
   before_action :authenticate_user
-  before_action :authorize_user_for_workshop, only: [:show]
+  before_action :authorize_user_for_workshop, only: [:show, :members]
 
   def create
     ActiveRecord::Base.transaction do
@@ -108,11 +108,37 @@ class Api::V1::WorkshopsController < ApplicationController
     return render :json => workshop
   end
 
+  def members
+    workshop = Workshop
+    .where(workshop_token: params[:workshop_id])
+    .first
+
+    workshop_members = WorkshopMember
+    .where(
+      workshop_id: workshop.id
+    )
+
+    render :json => workshop_members
+    .to_json(
+      include: {
+        user: {
+          only: [:first_name, :last_name]
+        }
+      }
+    )
+  end
+
   private
 
   def authorize_user_for_workshop
+    if params[:workshop_id]
+      workshop_id = params[:workshop_id]
+    else
+      workshop_id = params[:id]
+    end
+
     workshop = Workshop
-    .where(workshop_token: params[:id])
+    .where(workshop_token: workshop_id)
     .first
 
     workshop_member = WorkshopMember
@@ -124,6 +150,22 @@ class Api::V1::WorkshopsController < ApplicationController
 
     if !workshop_member
       return render :json => { error: ["user is not part of this workshop"] }, status: 401
+    end
+  end
+
+  def authorize_user_is_host
+    if params[:workshop_id]
+      workshop_id = params[:workshop_id]
+    else
+      workshop_id = params[:id]
+    end
+
+    workshop = Workshop
+    .where(workshop_token: workshop_id)
+    .first
+
+    if workshop.host_id != @current_user.id
+      return render :json => { error: ["user is not the host"] }, status: 401
     end
   end
 end

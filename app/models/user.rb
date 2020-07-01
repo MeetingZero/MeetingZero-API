@@ -2,6 +2,8 @@ class User < ApplicationRecord
   before_create :create_account_activation_token
   after_create :send_account_activation_email
 
+  has_many :workshop_members, dependent: :destroy
+
   has_secure_password
 
   validates :first_name, presence: true

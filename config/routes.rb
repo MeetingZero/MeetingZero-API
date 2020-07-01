@@ -11,6 +11,8 @@ Rails.application.routes.draw do
       end
 
       resources :workshops do
+        get "/members" => "workshops#members"
+
         resources :director, controller: :workshop_directors do
           collection do
             get "/current" => "workshop_directors#current"
