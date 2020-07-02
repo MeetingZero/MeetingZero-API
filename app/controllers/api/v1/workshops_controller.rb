@@ -156,8 +156,8 @@ class Api::V1::WorkshopsController < ApplicationController
         # Broadcast updated workshop to the channel
         WorkshopChannel
         .broadcast_to(
-          workshop.workshop_token,
-          workshop: workshop.to_json
+          workshop,
+          workshop: workshop
         )
 
         return head 200
