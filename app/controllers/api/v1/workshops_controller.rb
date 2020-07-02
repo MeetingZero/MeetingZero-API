@@ -130,8 +130,42 @@ class Api::V1::WorkshopsController < ApplicationController
   end
 
   def start_workshop
-    workshop = Workshop
-    .find_by_token(params[:workshop_id])
+    ActiveRecord::Base.transaction do
+      begin
+        current_workshop_director = WorkshopDirector
+        .get_current(params[:workshop_id])
+
+        current_stage_step = WorkshopStageStep
+        .find(current_workshop_director.workshop_stage_step_id)
+
+        stage_step_time_limit = current_stage_step.default_time_limit
+
+        # Generate an expire time from UTC + number of seconds given to this stage step
+        expire_time = Time.now.utc + stage_step_time_limit.seconds
+
+        # Current director stage step gets an time expiration
+        current_workshop_director
+        .update(workshop_stage_step_expire_time: expire_time.to_time.iso8601)
+
+        workshop = Workshop
+        .find_by_token(params[:workshop_id])
+
+        # Add time that workshop started
+        workshop.update(started_at: Time.now.utc)
+
+        # Broadcast updated workshop to the channel
+        WorkshopChannel
+        .broadcast_to(
+          workshop.workshop_token,
+          workshop: workshop.to_json
+        )
+
+        return head 200
+      rescue
+        render :json => { error: ["could not start workshop"] }, status: 400
+        raise ActiveRecord::Rollback
+      end
+    end
   end
 
   private
