@@ -10,4 +10,10 @@ class Workshop < ApplicationRecord
       break random_token unless Workshop.exists?(workshop_token: random_token)
     end
   end
+
+  def self.find_by_token(workshop_token)
+    return Workshop
+    .where(workshop_token: workshop_token)
+    .first
+  end
 end

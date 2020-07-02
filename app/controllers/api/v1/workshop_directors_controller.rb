@@ -2,24 +2,15 @@ class Api::V1::WorkshopDirectorsController < ApplicationController
   before_action :authenticate_user
 
   def index
-    workshop_directors = Workshop
-    .where(workshop_token: params[:workshop_id])
-    .first
-    .workshop_directors
-    .all
-    .order(id: :asc)
+    workshop_directors = WorkshopDirector
+    .get_ordered(params[:workshop_id])
 
     return render :json => workshop_directors.group_by { |i| i.workshop_stage_id }, include: [:workshop_stage, :workshop_stage_step]
   end
 
   def current
-    workshop_director = Workshop
-    .where(workshop_token: params[:workshop_id])
-    .first
-    .workshop_directors
-    .where(completed: false)
-    .order(id: :asc)
-    .first
+    workshop_director = WorkshopDirector
+    .get_current(params[:workshop_id])
 
     return render :json => workshop_director, include: [:workshop_stage, :workshop_stage_step]
   end

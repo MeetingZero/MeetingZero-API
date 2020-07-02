@@ -5,6 +5,7 @@ class CreateWorkshopDirectors < ActiveRecord::Migration[6.0]
       t.integer :workshop_stage_id
       t.integer :workshop_stage_step_id
       t.boolean :completed, default: false
+      t.datetime :workshop_stage_step_expire_time
 
       t.timestamps
     end
