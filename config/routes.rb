@@ -13,6 +13,7 @@ Rails.application.routes.draw do
       resources :workshops do
         get "/members" => "workshops#members"
         put "/start" => "workshops#start_workshop"
+        get "/validate" => "workshops#validate"
 
         resources :director, controller: :workshop_directors do
           collection do

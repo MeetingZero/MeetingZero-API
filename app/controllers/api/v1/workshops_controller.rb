@@ -168,6 +168,24 @@ class Api::V1::WorkshopsController < ApplicationController
     end
   end
 
+  def validate
+    workshop = Workshop
+    .find_by_token(params[:workshop_id])
+
+    if !workshop
+      return render :json => { error: ["could not find workshop"] }, status: 404
+    end
+
+    workshop_member = WorkshopMember
+    .where(user_id: @current_user.id, workshop_id: workshop.id)
+
+    if !workshop_member
+      return render :json => { error: ["member is not part of this workshop"] }, status: 400
+    end
+
+    return head 200
+  end
+
   private
 
   def authorize_user_for_workshop
