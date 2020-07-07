@@ -17,6 +17,7 @@ class WorkshopDirector < ApplicationRecord
     .where(workshop_token: workshop_token)
     .first
     .workshop_directors
+    .includes(:workshop_stage, :workshop_stage_step)
     .where(completed: false)
     .order(id: :asc)
     .first

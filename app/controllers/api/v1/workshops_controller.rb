@@ -220,7 +220,7 @@ class Api::V1::WorkshopsController < ApplicationController
     WorkshopChannel
     .broadcast_to(
       workshop,
-      current_workshop_director: new_workshop_director, include: [:workshop_stage, :workshop_stage_step]
+      current_workshop_director: new_workshop_director.to_json(include: [:workshop_stage, :workshop_stage_step])
     )
 
     return head 200
