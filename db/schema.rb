@@ -29,6 +29,7 @@ ActiveRecord::Schema.define(version: 2020_06_29_205410) do
     t.integer "workshop_stage_id"
     t.integer "workshop_stage_step_id"
     t.boolean "completed", default: false
+    t.datetime "workshop_stage_step_start_time"
     t.datetime "workshop_stage_step_expire_time"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false

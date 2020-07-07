@@ -145,7 +145,10 @@ class Api::V1::WorkshopsController < ApplicationController
 
         # Current director stage step gets an time expiration
         current_workshop_director
-        .update(workshop_stage_step_expire_time: expire_time.to_time.iso8601)
+        .update(
+          workshop_stage_step_start_time: Time.now.utc.to_time.iso8601,
+          workshop_stage_step_expire_time: expire_time.to_time.iso8601
+        )
 
         workshop = Workshop
         .find_by_token(params[:workshop_id])
