@@ -1,8 +1,8 @@
 class Api::V1::WorkshopsController < ApplicationController
   skip_before_action :verify_authenticity_token
   before_action :authenticate_user
-  before_action :authorize_user_for_workshop, only: [:show, :members, :start_workshop]
-  before_action :authorize_user_is_host, only: [:members, :start_workshop]
+  before_action :authorize_user_for_workshop, only: [:show, :members, :start_workshop, :complete_step]
+  before_action :authorize_user_is_host, only: [:members, :start_workshop, :complete_step]
 
   def create
     ActiveRecord::Base.transaction do
@@ -187,6 +187,36 @@ class Api::V1::WorkshopsController < ApplicationController
     end
 
     return head 200
+  end
+
+  def complete_step
+    workshop = Workshop
+    .find_by_token(params[:workshop_id])
+
+    old_workshop_director = WorkshopDirector
+    .get_current(params[:workshop_id])
+
+    old_workshop_director.update(completed: true)
+
+    new_workshop_director = WorkshopDirector
+    .get_current(params[:workshop_id])
+
+    current_stage_step = WorkshopStageStep
+    .find(new_workshop_director.workshop_stage_step_id)
+
+    stage_step_time_limit = current_stage_step.default_time_limit
+
+    # Generate an expire time from UTC + number of seconds given to this new stage step
+    expire_time = Time.now.utc + stage_step_time_limit.seconds
+
+    # New director stage step gets an time expiration
+    new_workshop_director
+    .update(
+      workshop_stage_step_start_time: Time.now.utc.to_time.iso8601,
+      workshop_stage_step_expire_time: expire_time.to_time.iso8601
+    )
+
+    render :json => new_workshop_director
   end
 
   private
