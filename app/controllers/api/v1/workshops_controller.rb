@@ -216,7 +216,14 @@ class Api::V1::WorkshopsController < ApplicationController
       workshop_stage_step_expire_time: expire_time.to_time.iso8601
     )
 
-    render :json => new_workshop_director
+    # Broadcast updated director to the channel
+    WorkshopChannel
+    .broadcast_to(
+      workshop,
+      current_workshop_director: new_workshop_director, include: [:workshop_stage, :workshop_stage_step]
+    )
+
+    return head 200
   end
 
   private
