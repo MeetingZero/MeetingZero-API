@@ -34,7 +34,7 @@ class ApplicationController < ActionController::Base
     workshop_member = WorkshopMember
     .where(
       user_id: @current_user.id,
-      workshop_id: workshop.id
+      workshop_id: @workshop.id
     )
     .first
 
