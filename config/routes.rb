@@ -21,6 +21,8 @@ Rails.application.routes.draw do
             get "/current" => "workshop_directors#current"
           end
         end
+
+        resources :what_is_working
       end
     end
   end
