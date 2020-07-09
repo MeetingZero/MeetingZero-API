@@ -4,11 +4,16 @@ class Api::V1::WhatIsWorkingController < ApplicationController
   before_action :authorize_user_for_workshop, only: [:index, :create]
 
   def index
-    what_is_working_records = WhatIsWorkingResponse
-    .where(
-      workshop_id: @workshop.id,
-      user_id: @current_user.id
-    )
+    if params[:my_filter]
+      what_is_working_records = WhatIsWorkingResponse
+      .where(
+        workshop_id: @workshop.id,
+        user_id: @current_user.id
+      )
+    else
+      what_is_working_records = WhatIsWorkingResponse
+      .where(workshop_id: @workshop.id)
+    end
 
     return render :json => what_is_working_records
   end
