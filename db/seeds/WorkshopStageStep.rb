@@ -5,7 +5,7 @@ WorkshopStage
 .create(
   key: "WHATS_WORKING_RESPONSES",
   name: "Responses",
-  default_time_limit: 3000,
+  default_time_limit: 300,
   description: "What's working responses"
 )
 
