@@ -23,6 +23,8 @@ Rails.application.routes.draw do
         end
 
         resources :what_is_working
+
+        resources :problems
       end
     end
   end

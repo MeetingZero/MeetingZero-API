@@ -2,6 +2,7 @@ class Workshop < ApplicationRecord
   has_many :workshop_directors, dependent: :destroy
   has_many :workshop_members, dependent: :destroy
   has_many :what_is_working_responses, dependent: :destroy
+  has_many :problem_responses, dependent: :destroy
   
   before_create :generate_workshop_token
 
