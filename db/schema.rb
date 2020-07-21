@@ -10,12 +10,21 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_07_15_204418) do
+ActiveRecord::Schema.define(version: 2020_07_21_042106) do
 
   create_table "problem_responses", force: :cascade do |t|
     t.integer "workshop_id"
     t.integer "user_id"
     t.text "response_text"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "problem_votes", force: :cascade do |t|
+    t.integer "workshop_id"
+    t.integer "user_id"
+    t.integer "problem_response_id"
+    t.integer "vote_number"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
