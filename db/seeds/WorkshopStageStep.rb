@@ -42,4 +42,15 @@ WorkshopStage
   description: "Problem voting"
 )
 
+WorkshopStage
+.where(key: "PROBLEMS")
+.first
+.workshop_stage_steps
+.create(
+  key: "PROBLEMS_REVIEW_VOTES",
+  name: "Review Votes",
+  default_time_limit: 300,
+  description: "Review problem votes"
+)
+
 puts "- Workshop Stage Steps Created -"
