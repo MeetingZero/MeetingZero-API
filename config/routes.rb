@@ -27,6 +27,10 @@ Rails.application.routes.draw do
         resources :problems do
           post "/vote" => "problems#vote"
           put "/vote/:problem_vote_id" => "problems#update_vote"
+
+          collection do
+            post "/calculate-votes" => "problems#calculate_votes"
+          end
         end
       end
     end

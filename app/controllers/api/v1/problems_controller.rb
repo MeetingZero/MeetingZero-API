@@ -1,7 +1,7 @@
 class Api::V1::ProblemsController < ApplicationController
   skip_before_action :verify_authenticity_token
   before_action :authenticate_user
-  before_action :authorize_user_for_workshop, only: [:index, :create, :update, :vote, :update_vote]
+  before_action :authorize_user_for_workshop
 
   def index
     if params[:my_filter]
@@ -118,5 +118,12 @@ class Api::V1::ProblemsController < ApplicationController
     end
 
     return render :json => problems_records
+  end
+
+  def calculate_votes
+    calculated_votes = ProblemVote
+    .calculate_votes(@workshop.id)
+
+    render :json => calculated_votes
   end
 end
