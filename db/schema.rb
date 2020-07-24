@@ -75,6 +75,7 @@ ActiveRecord::Schema.define(version: 2020_07_21_042106) do
     t.string "name"
     t.integer "default_time_limit"
     t.text "description"
+    t.boolean "discussion_allowed", default: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end

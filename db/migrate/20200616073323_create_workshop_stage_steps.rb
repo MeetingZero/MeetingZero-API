@@ -6,6 +6,7 @@ class CreateWorkshopStageSteps < ActiveRecord::Migration[6.0]
       t.string :name
       t.integer :default_time_limit
       t.text :description
+      t.boolean :discussion_allowed, default: false
 
       t.timestamps
     end
