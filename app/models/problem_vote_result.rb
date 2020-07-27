@@ -1,0 +1,2 @@
+class ProblemVoteResult < ApplicationRecord
+end

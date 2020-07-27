@@ -1,0 +1,23 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  workshop_id: 1
+  round_1_runner_up_problem_response_id: 1
+  round_1_runner_up_tally: 1
+  round_1_winner_problem_response_id: 1
+  round_1_winner_tally: 1
+  runoff_runner_up_problem_response_id: 1
+  runoff_runner_up_tally: 1
+  runoff_winner_problem_response_id: 1
+  runoff_winner_tally: 1
+
+two:
+  workshop_id: 1
+  round_1_runner_up_problem_response_id: 1
+  round_1_runner_up_tally: 1
+  round_1_winner_problem_response_id: 1
+  round_1_winner_tally: 1
+  runoff_runner_up_problem_response_id: 1
+  runoff_runner_up_tally: 1
+  runoff_winner_problem_response_id: 1
+  runoff_winner_tally: 1

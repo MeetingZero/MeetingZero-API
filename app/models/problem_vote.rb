@@ -2,6 +2,15 @@ class ProblemVote < ApplicationRecord
   belongs_to :workshop
 
   def self.calculate_votes(workshop_id)
+    problem_vote_results = ProblemVoteResult
+    .where(workshop_id: workshop_id)
+    .first
+
+    # If results were previously calculated, just return the results
+    if problem_vote_results
+      return self.create_payload(problem_vote_results)
+    end
+
     problems_votes = ProblemVote
     .where(workshop_id: workshop_id)
 
@@ -56,22 +65,39 @@ class ProblemVote < ApplicationRecord
     .sort_by { |k, v| v }
     .reverse
 
+    problem_vote_results = ProblemVoteResult
+    .create(
+      workshop_id: workshop_id,
+      round_1_runner_up_problem_response_id: round_1_winners[1][0],
+      round_1_runner_up_tally: round_1_winners[1][1],
+      round_1_winner_problem_response_id: round_1_winners[0][0],
+      round_1_winner_tally: round_1_winners[0][1],
+      runoff_runner_up_problem_response_id: runoff_winners[1][0],
+      runoff_runner_up_tally: runoff_winners[1][1],
+      runoff_winner_problem_response_id: runoff_winners[0][0],
+      runoff_winner_tally: runoff_winners[0][1]
+    )
+
+    return create_payload(problem_vote_results)
+  end
+
+  def self.create_payload(problem_vote_results)
     return {
       round_1_winner: {
-        problem_response: ProblemResponse.find(round_1_winners[0][0]),
-        tally: round_1_winners[0][1]
+        problem_response: ProblemResponse.find(problem_vote_results.round_1_winner_problem_response_id),
+        tally: problem_vote_results.round_1_winner_tally
       },
       round_1_runner_up: {
-        problem_response: ProblemResponse.find(round_1_winners[1][0]),
-        tally: round_1_winners[1][1]
+        problem_response: ProblemResponse.find(problem_vote_results.round_1_runner_up_problem_response_id),
+        tally: problem_vote_results.round_1_runner_up_tally
       },
       runoff_winner: {
-        problem_response: ProblemResponse.find(runoff_winners[0][0]),
-        tally: runoff_winners[0][1]
+        problem_response: ProblemResponse.find(problem_vote_results.runoff_winner_problem_response_id),
+        tally: problem_vote_results.runoff_winner_tally
       },
       runoff_runner_up: {
-        problem_response: ProblemResponse.find(runoff_winners[1][0]),
-        tally: runoff_winners[1][1]
+        problem_response: ProblemResponse.find(problem_vote_results.runoff_runner_up_problem_response_id),
+        tally: problem_vote_results.runoff_runner_up_tally
       }
     }
   end
