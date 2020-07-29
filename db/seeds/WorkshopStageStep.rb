@@ -5,7 +5,7 @@ WorkshopStage
 .create(
   key: "WHATS_WORKING_RESPONSES",
   name: "Responses",
-  default_time_limit: 10,
+  default_time_limit: 120,
   description: "What's working responses"
 )
 
@@ -16,7 +16,7 @@ WorkshopStage
 .create(
   key: "WHATS_WORKING_REVIEW",
   name: "Review",
-  default_time_limit: 5,
+  default_time_limit: 120,
   description: "What's working review"
 )
 
@@ -27,7 +27,7 @@ WorkshopStage
 .create(
   key: "PROBLEMS_REPONSES",
   name: "Responses",
-  default_time_limit: 20,
+  default_time_limit: 180,
   description: "Problem responses"
 )
 
@@ -38,7 +38,7 @@ WorkshopStage
 .create(
   key: "PROBLEMS_VOTE",
   name: "Vote",
-  default_time_limit: 30,
+  default_time_limit: 300,
   description: "Problem voting"
 )
 
@@ -49,7 +49,7 @@ WorkshopStage
 .create(
   key: "PROBLEMS_REVIEW_VOTES",
   name: "Review Votes",
-  default_time_limit: 3000,
+  default_time_limit: 120,
   description: "Review problem votes"
 )
 
