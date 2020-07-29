@@ -5,7 +5,7 @@ class StarVoting
   end
 
   def calculate_votes
-    voting_results = StarVotingResult
+    star_voting_result = StarVotingResult
     .where(
       model_name: @model_name,
       workshop_id: @workshop_id
@@ -13,8 +13,8 @@ class StarVoting
     .first
 
     # If results were previously calculated, just return the results
-    if voting_results
-      return create_payload(voting_results)
+    if star_voting_result
+      return create_payload(star_voting_result)
     end
 
     resource_votes = StarVotingVote
@@ -74,7 +74,7 @@ class StarVoting
     .sort_by { |k, v| v }
     .reverse
 
-    star_voting_result = StarVotingResult
+    new_star_voting_result = StarVotingResult
     .create(
       workshop_id: @workshop_id,
       model_name: @model_name,
@@ -88,7 +88,7 @@ class StarVoting
       runoff_winner_tally: runoff_winners[0][1]
     )
 
-    return create_payload(star_voting_result)
+    return create_payload(new_star_voting_result)
   end
 
   def create_payload(star_voting_result)
