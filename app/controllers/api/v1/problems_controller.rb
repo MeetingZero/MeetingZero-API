@@ -133,6 +133,6 @@ class Api::V1::ProblemsController < ApplicationController
       "ProblemResponse"
     )
 
-    render :json => calculated_votes
+    render :json => star_voting.calculate_votes
   end
 end
