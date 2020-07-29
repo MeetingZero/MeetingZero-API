@@ -20,18 +20,9 @@ ActiveRecord::Schema.define(version: 2020_07_29_022240) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
-  create_table "problem_votes", force: :cascade do |t|
-    t.integer "workshop_id"
-    t.integer "user_id"
-    t.integer "problem_response_id"
-    t.integer "vote_number"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-  end
-
   create_table "star_voting_results", force: :cascade do |t|
     t.integer "workshop_id"
-    t.string "model_name"
+    t.string "resource_model_name"
     t.integer "round_1_runner_up_resource_id"
     t.integer "round_1_runner_up_tally"
     t.integer "round_1_winner_resource_id"

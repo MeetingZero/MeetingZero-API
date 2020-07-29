@@ -38,7 +38,7 @@ WorkshopStage
 .create(
   key: "PROBLEMS_VOTE",
   name: "Vote",
-  default_time_limit: 3000,
+  default_time_limit: 30,
   description: "Problem voting"
 )
 

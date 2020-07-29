@@ -1,13 +1,13 @@
 class StarVoting
-  def initialize(workshop_id, model_name)
+  def initialize(workshop_id, resource_model_name)
     @workshop_id = workshop_id
-    @model_name = model_name
+    @resource_model_name = resource_model_name
   end
 
   def calculate_votes
     star_voting_result = StarVotingResult
     .where(
-      model_name: @model_name,
+      resource_model_name: @resource_model_name,
       workshop_id: @workshop_id
     )
     .first
@@ -20,7 +20,7 @@ class StarVoting
     resource_votes = StarVotingVote
     .where(
       workshop_id: @workshop_id,
-      resource_model_name: @model_name
+      resource_model_name: @resource_model_name
     )
 
     round_1_tally = {}
@@ -77,7 +77,7 @@ class StarVoting
     new_star_voting_result = StarVotingResult
     .create(
       workshop_id: @workshop_id,
-      model_name: @model_name,
+      resource_model_name: @resource_model_name,
       round_1_runner_up_resource_id: round_1_winners[1][0],
       round_1_runner_up_tally: round_1_winners[1][1],
       round_1_winner_resource_id: round_1_winners[0][0],
@@ -94,19 +94,19 @@ class StarVoting
   def create_payload(star_voting_result)
     return {
       round_1_winner: {
-        resource: star_voting_result.model_name.constantize.find(star_voting_result.round_1_winner_resource_id),
+        resource: star_voting_result.resource_model_name.constantize.find(star_voting_result.round_1_winner_resource_id),
         tally: star_voting_result.round_1_winner_tally
       },
       round_1_runner_up: {
-        resource: star_voting_result.model_name.constantize.find(star_voting_result.round_1_runner_up_resource_id),
+        resource: star_voting_result.resource_model_name.constantize.find(star_voting_result.round_1_runner_up_resource_id),
         tally: star_voting_result.round_1_runner_up_tally
       },
       runoff_winner: {
-        resource: star_voting_result.model_name.constantize.find(star_voting_result.runoff_winner_resource_id),
+        resource: star_voting_result.resource_model_name.constantize.find(star_voting_result.runoff_winner_resource_id),
         tally: star_voting_result.runoff_winner_tally
       },
       runoff_runner_up: {
-        resource: star_voting_result.model_name.constantize.find(star_voting_result.runoff_runner_up_resource_id),
+        resource: star_voting_result.resource_model_name.constantize.find(star_voting_result.runoff_runner_up_resource_id),
         tally: star_voting_result.runoff_runner_up_tally
       }
     }
