@@ -1,3 +1,5 @@
+require_relative "../../../services/star_voting"
+
 class Api::V1::ProblemsController < ApplicationController
   skip_before_action :verify_authenticity_token
   before_action :authenticate_user
@@ -21,10 +23,11 @@ class Api::V1::ProblemsController < ApplicationController
       pr
       .as_json
       .merge!({
-        my_problem_vote: ProblemVote.where(
+        star_voting_vote: StarVotingVote.where(
           user_id: @current_user.id,
           workshop_id: @workshop.id,
-          problem_response_id: pr.id
+          resource_model_name: "ProblemResponse",
+          resource_id: pr.id
         ).first
       })
     end
@@ -64,10 +67,11 @@ class Api::V1::ProblemsController < ApplicationController
   end
 
   def vote
-    ProblemVote.create(
+    StarVotingVote.create(
       workshop_id: @workshop.id,
       user_id: @current_user.id,
-      problem_response_id: params[:problem_id],
+      resource_model_name: "ProblemResponse",
+      resource_id: params[:problem_id],
       vote_number: params[:vote_number]
     )
 
@@ -79,10 +83,11 @@ class Api::V1::ProblemsController < ApplicationController
       pr
       .as_json
       .merge!({
-        my_problem_vote: ProblemVote.where(
+        star_voting_vote: StarVotingVote.where(
           user_id: @current_user.id,
           workshop_id: @workshop.id,
-          problem_response_id: pr.id
+          resource_model_name: "ProblemResponse",
+          resource_id: pr.id
         ).first
       })
     end
@@ -91,12 +96,13 @@ class Api::V1::ProblemsController < ApplicationController
   end
 
   def update_vote
-    ProblemVote
+    StarVotingVote
     .where(
       id: params[:problem_vote_id],
       user_id: @current_user.id,
       workshop_id: @workshop.id,
-      problem_response_id: params[:problem_id]
+      resource_model_name: "ProblemResponse",
+      resource_id: params[:problem_id]
     )
     .first
     .update(vote_number: params[:vote_number])
@@ -109,10 +115,11 @@ class Api::V1::ProblemsController < ApplicationController
       pr
       .as_json
       .merge!({
-        my_problem_vote: ProblemVote.where(
+        star_voting_vote: StarVotingVote.where(
           user_id: @current_user.id,
           workshop_id: @workshop.id,
-          problem_response_id: pr.id
+          resource_model_name: "ProblemResponse",
+          resource_id: pr.id
         ).first
       })
     end
@@ -121,8 +128,10 @@ class Api::V1::ProblemsController < ApplicationController
   end
 
   def calculate_votes
-    calculated_votes = ProblemVote
-    .calculate_votes(@workshop.id)
+    star_voting = StarVoting.new(
+      @workshop.id,
+      "ProblemResponse"
+    )
 
     render :json => calculated_votes
   end

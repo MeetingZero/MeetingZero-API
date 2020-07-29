@@ -1,0 +1,2 @@
+class StarVotingVote < ApplicationRecord
+end
