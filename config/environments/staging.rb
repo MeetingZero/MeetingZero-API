@@ -61,4 +61,7 @@ Rails.application.configure do
   config.file_watcher = ActiveSupport::EventedFileUpdateChecker
 
   config.action_cable.allowed_request_origins = ["https://dev.meetingzero.net"]
+
+  config.active_job.queue_adapter = :resque
+  config.active_job.queue_name_prefix = "meetingzero_api_staging"
 end
