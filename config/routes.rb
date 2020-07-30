@@ -26,6 +26,8 @@ Rails.application.routes.draw do
 
         resources :problems
 
+        resources :reframe_problem
+
         resources :star_voting_votes do
           collection do
             post "/calculate-votes" => "star_voting_votes#calculate_votes"

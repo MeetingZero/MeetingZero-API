@@ -1,0 +1,2 @@
+class ReframeProblemResponse < ApplicationRecord
+end
