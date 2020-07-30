@@ -110,13 +110,9 @@ class Api::V1::WorkshopsController < ApplicationController
   end
 
   def members
-    workshop = Workshop
-    .where(workshop_token: params[:workshop_id])
-    .first
-
     workshop_members = WorkshopMember
     .where(
-      workshop_id: workshop.id
+      workshop_id: @workshop.id
     )
 
     render :json => workshop_members
