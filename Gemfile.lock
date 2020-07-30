@@ -159,6 +159,9 @@ GEM
       redis-namespace (~> 1.6)
       sinatra (>= 0.9.2)
       vegas (~> 0.1.2)
+    resque-pool (0.7.1)
+      rake (>= 10.0, < 14.0)
+      resque (>= 1.22, < 3)
     ruby2_keywords (0.0.2)
     rubyzip (2.3.0)
     sass-rails (6.0.0)
@@ -234,6 +237,7 @@ DEPENDENCIES
   rails (~> 6.0.3, >= 6.0.3.1)
   redis (~> 4.0)
   resque
+  resque-pool
   sass-rails (>= 6)
   selenium-webdriver
   spring
