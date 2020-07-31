@@ -64,4 +64,15 @@ WorkshopStage
   description: "Reframe problem responses"
 )
 
+WorkshopStage
+.where(key: "REFRAME_PROBLEM")
+.first
+.workshop_stage_steps
+.create(
+  key: "REFRAME_PROBLEM_VOTE",
+  name: "Responses",
+  default_time_limit: 240,
+  description: "Reframe problem votes"
+)
+
 puts "- Workshop Stage Steps Created -"

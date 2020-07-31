@@ -5,18 +5,31 @@ class Api::V1::ReframeProblemController < ApplicationController
 
   def index
     if params[:my_filter]
-      reframe_problem_record = ReframeProblemResponse
+      reframe_problem_records = ReframeProblemResponse
       .where(
         workshop_id: @workshop.id,
         user_id: @current_user.id
       )
       .first
     else
-      reframe_problem_record = ReframeProblemResponse
+      reframe_problem_records = ReframeProblemResponse
       .where(workshop_id: @workshop.id)
+
+      reframe_problem_records = reframe_problem_records.map do |rp|
+        rp
+        .as_json
+        .merge!({
+          star_voting_vote: StarVotingVote.where(
+            user_id: @current_user.id,
+            workshop_id: @workshop.id,
+            resource_model_name: "ReframeProblemResponse",
+            resource_id: rp.id
+          ).first
+        })
+      end
     end
 
-    return render :json => reframe_problem_record
+    return render :json => reframe_problem_records
   end
 
   def create
