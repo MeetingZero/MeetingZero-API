@@ -1,0 +1,2 @@
+class OpportunityQuestionResponse < ApplicationRecord
+end

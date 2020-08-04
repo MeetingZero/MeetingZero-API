@@ -86,4 +86,16 @@ WorkshopStage
   description: "Reframe problem review votes"
 )
 
+WorkshopStage
+.where(key: "OPPORTUNITY_QUESTION")
+.first
+.workshop_stage_steps
+.create(
+  key: "OPPORTUNITY_QUESTION_RESPONSE",
+  name: "Response",
+  default_time_limit: 3000,
+  description: "Opportunity question response",
+  discussion_allowed: true
+)
+
 puts "- Workshop Stage Steps Created -"
