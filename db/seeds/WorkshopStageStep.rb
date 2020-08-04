@@ -70,7 +70,7 @@ WorkshopStage
 .workshop_stage_steps
 .create(
   key: "REFRAME_PROBLEM_VOTE",
-  name: "Responses",
+  name: "Vote",
   default_time_limit: 240,
   description: "Reframe problem votes"
 )
