@@ -30,6 +30,8 @@ Rails.application.routes.draw do
 
         resources :opportunity_question
 
+        resources :solutions
+
         resources :star_voting_votes do
           collection do
             post "/calculate-votes" => "star_voting_votes#calculate_votes"
