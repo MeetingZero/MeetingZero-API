@@ -105,8 +105,19 @@ WorkshopStage
 .create(
   key: "SOLUTIONS_RESPONSES",
   name: "Responses",
-  default_time_limit: 3000,
+  default_time_limit: 300,
   description: "Solutions responses"
+)
+
+WorkshopStage
+.where(key: "SOLUTIONS")
+.first
+.workshop_stage_steps
+.create(
+  key: "SOLUTIONS_IMPACT_EFFORT",
+  name: "Impact/Effort",
+  default_time_limit: 3000,
+  description: "Solutions impact and effort"
 )
 
 puts "- Workshop Stage Steps Created -"
