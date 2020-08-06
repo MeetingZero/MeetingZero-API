@@ -30,7 +30,9 @@ Rails.application.routes.draw do
 
         resources :opportunity_question
 
-        resources :solutions
+        resources :solutions do
+          put "/prioritize" => "solutions#prioritize"
+        end
 
         resources :star_voting_votes do
           collection do

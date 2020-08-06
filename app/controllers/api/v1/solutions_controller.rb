@@ -48,4 +48,19 @@ class Api::V1::SolutionsController < ApplicationController
 
     return render :json => solutions_records
   end
+
+  def prioritize
+    SolutionResponse
+    .where(
+      id: params[:solution_id],
+      user_id: @current_user.id
+    )
+    .first
+    .update(solution_priority: params[:solution_priority])
+
+    solutions_records = SolutionResponse
+    .where(workshop_id: @workshop.id)
+
+    return render :json => solutions_records
+  end
 end
