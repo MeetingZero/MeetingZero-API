@@ -4,6 +4,7 @@ class Workshop < ApplicationRecord
   has_many :what_is_working_responses, dependent: :destroy
   has_many :problem_responses, dependent: :destroy
   has_many :problem_votes, dependent: :destroy
+  has_many :solution_response_priorities, dependent: :destroy
   
   before_create :generate_workshop_token
 
