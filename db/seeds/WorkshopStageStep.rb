@@ -127,8 +127,9 @@ WorkshopStage
 .create(
   key: "EXPERIMENT_HYPOTHESIS",
   name: "Hypothesis",
-  default_time_limit: 300,
+  default_time_limit: 10000,
   description: "Experiment hypothesis"
+  discussion_allowed: true
 )
 
 puts "- Workshop Stage Steps Created -"
