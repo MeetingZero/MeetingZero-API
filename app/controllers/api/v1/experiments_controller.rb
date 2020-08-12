@@ -2,6 +2,7 @@ class Api::V1::ExperimentsController < ApplicationController
   skip_before_action :verify_authenticity_token
   before_action :authenticate_user
   before_action :authorize_user_for_workshop
+  before_action :authorize_user_is_host, except: [:get_hypothesis]
 
   def get_hypothesis
     experiments_hypothesis = ExperimentHypothesis
