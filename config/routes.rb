@@ -38,6 +38,13 @@ Rails.application.routes.draw do
           post "/prioritize" => "solutions#prioritize"
         end
 
+        resources :experiments do
+          collection do
+            get "/hypothesis" => "experiments#get_hypothesis"
+            post "/hypothesis" => "experiments#save_hypothesis"
+          end
+        end
+
         resources :star_voting_votes do
           collection do
             post "/calculate-votes" => "star_voting_votes#calculate_votes"
