@@ -121,14 +121,26 @@ WorkshopStage
 )
 
 WorkshopStage
-.where(key: "EXPERIMENT")
+.where(key: "EXPERIMENTS")
 .first
 .workshop_stage_steps
 .create(
-  key: "EXPERIMENT_HYPOTHESIS",
+  key: "EXPERIMENTS_HYPOTHESIS",
   name: "Hypothesis",
+  default_time_limit: 300,
+  description: "Experiments hypothesis",
+  discussion_allowed: true
+)
+
+WorkshopStage
+.where(key: "EXPERIMENTS")
+.first
+.workshop_stage_steps
+.create(
+  key: "EXPERIMENTS_OWNERS",
+  name: "Owner(s)",
   default_time_limit: 10000,
-  description: "Experiment hypothesis"
+  description: "Experiments owners",
   discussion_allowed: true
 )
 

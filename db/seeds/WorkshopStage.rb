@@ -29,8 +29,8 @@ WorkshopStage.create(
 )
 
 WorkshopStage.create(
-  key: "EXPERIMENT",
-  name: "Experiment",
+  key: "EXPERIMENTS",
+  name: "Experiments",
   description: "Develop tasks to experiment with"
 )
 
