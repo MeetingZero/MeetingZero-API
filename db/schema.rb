@@ -40,7 +40,9 @@ ActiveRecord::Schema.define(version: 2020_08_07_000458) do
     t.integer "workshop_id"
     t.integer "user_id"
     t.integer "solution_response_id"
-    t.string "solution_priority"
+    t.integer "impact_level"
+    t.integer "effort_level"
+    t.string "assessment_category"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end

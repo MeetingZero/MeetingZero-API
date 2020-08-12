@@ -72,13 +72,17 @@ class Api::V1::SolutionsController < ApplicationController
 
     if solution_response_priority
       solution_response_priority
-      .update(solution_priority: params[:solution_priority])
+      .update(
+        impact_level: params[:impact_level],
+        effort_level: params[:effort_level]
+      )
     else
       SolutionResponsePriority.create(
         workshop_id: @workshop.id,
         user_id: @current_user.id,
         solution_response_id: params[:solution_id],
-        solution_priority: params[:solution_priority]
+        impact_level: params[:impact_level],
+        effort_level: params[:effort_level]
       )
     end
 
