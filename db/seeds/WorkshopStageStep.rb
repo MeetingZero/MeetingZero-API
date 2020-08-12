@@ -116,8 +116,19 @@ WorkshopStage
 .create(
   key: "SOLUTIONS_IMPACT_EFFORT",
   name: "Impact/Effort",
-  default_time_limit: 3000,
+  default_time_limit: 300,
   description: "Solutions impact and effort"
+)
+
+WorkshopStage
+.where(key: "EXPERIMENT")
+.first
+.workshop_stage_steps
+.create(
+  key: "EXPERIMENT_HYPOTHESIS",
+  name: "Hypothesis",
+  default_time_limit: 300,
+  description: "Experiment hypothesis"
 )
 
 puts "- Workshop Stage Steps Created -"
