@@ -42,6 +42,10 @@ Rails.application.routes.draw do
           collection do
             get "/hypothesis" => "experiments#get_hypothesis"
             post "/hypothesis" => "experiments#save_hypothesis"
+
+            get "/tasks" => "experiments#get_tasks"
+            post "/tasks" => "experiments#save_task"
+            put "/tasks/:task_id" => "experiments#update_task"
           end
         end
 

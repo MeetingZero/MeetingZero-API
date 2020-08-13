@@ -52,4 +52,53 @@ class Api::V1::ExperimentsController < ApplicationController
       return render :json => experiments_hypothesis_record, status: 201
     end
   end
+
+  def get_tasks
+    experiment_tasks = ExperimentTask
+    .where(
+      workshop_id: @workshop.id,
+      user_id: @current_user.id
+    )
+
+    render :json => experiment_tasks
+  end
+
+  def save_task
+    ExperimentTask
+    .create(
+      workshop_id: @workshop.id,
+      user_id: @current_user.id,
+      response_text: params[:response_text]
+    )
+
+    experiment_tasks = ExperimentTask
+    .where(
+      workshop_id: @workshop.id,
+      user_id: @current_user.id
+    )
+
+    render :json => experiment_tasks, status: 201
+  end
+
+  def update_task
+    experiment_task = ExperimentTask
+    .where(
+      id: params[:task_id],
+      workshop_id: @workshop.id,
+      user_id: @current_user.id
+    )
+    .first
+
+    experiment_task.update(
+      response_text: params[:response_text]
+    )
+
+    experiment_tasks = ExperimentTask
+    .where(
+      workshop_id: @workshop.id,
+      user_id: @current_user.id
+    )
+
+    render :json => experiment_tasks
+  end
 end

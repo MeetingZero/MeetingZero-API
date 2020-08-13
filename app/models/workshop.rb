@@ -10,7 +10,7 @@ class Workshop < ApplicationRecord
 
   def generate_workshop_token
     self.workshop_token = loop do
-      random_token = SecureRandom.urlsafe_base64(nil, false)
+      random_token = SecureRandom.hex(5)
 
       break random_token unless Workshop.exists?(workshop_token: random_token)
     end

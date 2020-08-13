@@ -1,0 +1,2 @@
+class ExperimentTask < ApplicationRecord
+end

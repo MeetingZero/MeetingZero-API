@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_08_12_075101) do
+ActiveRecord::Schema.define(version: 2020_08_13_194429) do
 
   create_table "experiment_hypotheses", force: :cascade do |t|
     t.integer "workshop_id"
@@ -18,6 +18,14 @@ ActiveRecord::Schema.define(version: 2020_08_12_075101) do
     t.text "we_believe_text"
     t.text "will_result_in_text"
     t.text "succeeded_when_text"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "experiment_tasks", force: :cascade do |t|
+    t.integer "workshop_id"
+    t.integer "user_id"
+    t.text "response_text"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
