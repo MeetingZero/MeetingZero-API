@@ -46,6 +46,7 @@ Rails.application.routes.draw do
             get "/tasks" => "experiments#get_tasks"
             post "/tasks" => "experiments#save_task"
             put "/tasks/:task_id" => "experiments#update_task"
+            post "/tasks/:task_id/assignments" => "experiments#assign_task"
           end
         end
 
