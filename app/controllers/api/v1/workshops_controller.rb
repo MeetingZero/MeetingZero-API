@@ -2,7 +2,7 @@ class Api::V1::WorkshopsController < ApplicationController
   skip_before_action :verify_authenticity_token
   before_action :authenticate_user
   before_action :authorize_user_for_workshop, only: [:show, :members, :start_workshop, :complete_step]
-  before_action :authorize_user_is_host, only: [:members, :start_workshop, :complete_step]
+  before_action :authorize_user_is_host, only: [:start_workshop, :complete_step]
 
   def create
     ActiveRecord::Base.transaction do

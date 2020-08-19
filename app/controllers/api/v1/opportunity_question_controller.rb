@@ -2,12 +2,11 @@ class Api::V1::OpportunityQuestionController < ApplicationController
   skip_before_action :verify_authenticity_token
   before_action :authenticate_user
   before_action :authorize_user_for_workshop
-  before_action :authorize_user_is_host
+  before_action :authorize_user_is_host, except: [:index]
 
   def index
     opportunity_question_response = OpportunityQuestionResponse.where(
-      workshop_id: @workshop.id,
-      user_id: @current_user.id
+      workshop_id: @workshop.id
     )
     .first
 

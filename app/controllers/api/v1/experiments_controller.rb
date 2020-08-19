@@ -7,8 +7,7 @@ class Api::V1::ExperimentsController < ApplicationController
   def get_hypothesis
     experiments_hypothesis = ExperimentHypothesis
     .where(
-      workshop_id: @workshop.id,
-      user_id: @current_user.id
+      workshop_id: @workshop.id
     )
     .first
 
@@ -76,6 +75,15 @@ class Api::V1::ExperimentsController < ApplicationController
       user_id: @current_user.id
     )
 
+    # Broadcast experiment tasks to the channel
+    WorkshopChannel
+    .broadcast_to(
+      @workshop,
+      experiment_tasks: experiment_tasks.as_json(
+        include: [:experiment_task_assignments]
+      )
+    )
+
     render :json => experiment_tasks, include: [:experiment_task_assignments], status: 201
   end
 
@@ -96,6 +104,15 @@ class Api::V1::ExperimentsController < ApplicationController
     .where(
       workshop_id: @workshop.id,
       user_id: @current_user.id
+    )
+
+    # Broadcast experiment tasks to the channel
+    WorkshopChannel
+    .broadcast_to(
+      @workshop,
+      experiment_tasks: experiment_tasks.as_json(
+        include: [:experiment_task_assignments]
+      )
     )
 
     render :json => experiment_tasks, include: [:experiment_task_assignments]
@@ -126,6 +143,15 @@ class Api::V1::ExperimentsController < ApplicationController
     experiment_tasks = ExperimentTask
     .where(
       workshop_id: @workshop.id
+    )
+
+    # Broadcast experiment tasks to the channel
+    WorkshopChannel
+    .broadcast_to(
+      @workshop,
+      experiment_tasks: experiment_tasks.as_json(
+        include: [:experiment_task_assignments]
+      )
     )
 
     render :json => experiment_tasks, include: [:experiment_task_assignments]
