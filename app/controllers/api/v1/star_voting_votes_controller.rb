@@ -6,6 +6,16 @@ class Api::V1::StarVotingVotesController < ApplicationController
   before_action :authorize_user_for_workshop
 
   def create
+    if params[:save_exclusive]
+      StarVotingVote
+      .where(
+        workshop_id: @workshop.id,
+        user_id: @current_user.id,
+        resource_model_name: params[:resource_model_name]
+      )
+      .destroy_all
+    end
+
     StarVotingVote.create(
       workshop_id: @workshop.id,
       user_id: @current_user.id,
