@@ -72,7 +72,7 @@ WorkshopStage
   key: "REFRAME_PROBLEM_VOTE",
   name: "Vote",
   default_time_limit: 240,
-  description: "Reframe problem votes"
+  description: "Reframe problem vote"
 )
 
 WorkshopStage
@@ -121,13 +121,24 @@ WorkshopStage
 )
 
 WorkshopStage
+.where(key: "SOLUTIONS")
+.first
+.workshop_stage_steps
+.create(
+  key: "SOLUTIONS_VOTE",
+  name: "Vote",
+  default_time_limit: 300,
+  description: "Solutions vote"
+)
+
+WorkshopStage
 .where(key: "EXPERIMENTS")
 .first
 .workshop_stage_steps
 .create(
   key: "EXPERIMENTS_HYPOTHESIS",
   name: "Hypothesis",
-  default_time_limit: 1000,
+  default_time_limit: 600,
   description: "Experiments hypothesis",
   discussion_allowed: true
 )
@@ -139,7 +150,7 @@ WorkshopStage
 .create(
   key: "EXPERIMENTS_OWNERS",
   name: "Owner(s)",
-  default_time_limit: 10000,
+  default_time_limit: 600,
   description: "Experiments owners",
   discussion_allowed: true
 )
