@@ -31,7 +31,7 @@ five:
   user_id: 1
   resource_model_name: ProblemResponse
   resource_id: 1
-  vote_number: 1
+  vote_number: 3
 
 six:
   workshop_id: 3
@@ -45,11 +45,11 @@ seven:
   user_id: 2
   resource_model_name: ProblemResponse
   resource_id: 1
-  vote_number: 1
+  vote_number: 2
 
 eight:
   workshop_id: 3
   user_id: 2
   resource_model_name: ProblemResponse
   resource_id: 2
-  vote_number: 2
+  vote_number: 3

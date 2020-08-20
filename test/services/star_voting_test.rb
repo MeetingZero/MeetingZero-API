@@ -74,7 +74,7 @@ class StarVotingTest < ActiveSupport::TestCase
     )
 
     assert_equal(
-      7,
+      8,
       star_voting_results[:round_1_winner][:tally]
     )
 
@@ -84,7 +84,7 @@ class StarVotingTest < ActiveSupport::TestCase
     )
 
     assert_equal(
-      9,
+      13,
       star_voting_results[:runoff_winner][:tally]
     )
 
