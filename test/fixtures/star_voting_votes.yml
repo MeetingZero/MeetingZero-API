@@ -1,0 +1,27 @@
+one:
+  workshop_id: 2
+  user_id: 1
+  resource_model_name: ProblemResponse
+  resource_id: 1
+  vote_number: 5
+
+two:
+  workshop_id: 2
+  user_id: 1
+  resource_model_name: ProblemResponse
+  resource_id: 2
+  vote_number: 1
+
+three:
+  workshop_id: 2
+  user_id: 2
+  resource_model_name: ProblemResponse
+  resource_id: 1
+  vote_number: 5
+
+four:
+  workshop_id: 2
+  user_id: 2
+  resource_model_name: ProblemResponse
+  resource_id: 2
+  vote_number: 1

@@ -33,6 +33,28 @@ class StarVotingTest < ActiveSupport::TestCase
   end
 
   test "Standard Vote with Runoff" do
-    
+    star_voting = StarVoting.new(2, "ProblemResponse")
+
+    star_voting_results = star_voting.calculate_votes
+
+    assert_equal(
+      1,
+      star_voting_results[:round_1_winner][:resource].id
+    )
+
+    assert_equal(
+      10,
+      star_voting_results[:round_1_winner][:tally]
+    )
+
+    assert_equal(
+      12,
+      star_voting_results[:runoff_winner][:tally]
+    )
+
+    assert_equal(
+      0,
+      star_voting_results[:runoff_runner_up][:tally]
+    )
   end
 end
