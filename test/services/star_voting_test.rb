@@ -2,7 +2,7 @@ require "test_helper"
 require_relative "../../app/services/star_voting"
 
 class StarVotingTest < ActiveSupport::TestCase
-  test "the truth" do
+  test "Existing Result Short-Circuit" do
     StarVotingResult
     .create(
       resource_model_name: "ProblemResponse",
@@ -21,6 +21,18 @@ class StarVotingTest < ActiveSupport::TestCase
 
     star_voting_results = star_voting.calculate_votes
 
-    assert true
+    assert_equal(
+      "Hello World 2",
+      star_voting_results[:round_1_winner][:resource].response_text
+    )
+
+    assert_equal(
+      10,
+      star_voting_results[:round_1_winner][:tally]
+    )
+  end
+
+  test "Standard Vote with Runoff" do
+    
   end
 end
