@@ -48,7 +48,43 @@ class StarVotingTest < ActiveSupport::TestCase
     )
 
     assert_equal(
+      1,
+      star_voting_results[:runoff_winner][:resource].id
+    )
+
+    assert_equal(
       12,
+      star_voting_results[:runoff_winner][:tally]
+    )
+
+    assert_equal(
+      0,
+      star_voting_results[:runoff_runner_up][:tally]
+    )
+  end
+
+  test "Standard Vote with Different Support Levels" do
+    star_voting = StarVoting.new(3, "ProblemResponse")
+
+    star_voting_results = star_voting.calculate_votes
+
+    assert_equal(
+      2,
+      star_voting_results[:round_1_winner][:resource].id
+    )
+
+    assert_equal(
+      7,
+      star_voting_results[:round_1_winner][:tally]
+    )
+
+    assert_equal(
+      2,
+      star_voting_results[:runoff_winner][:resource].id
+    )
+
+    assert_equal(
+      9,
       star_voting_results[:runoff_winner][:tally]
     )
 
