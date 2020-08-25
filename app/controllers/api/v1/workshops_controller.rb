@@ -1,6 +1,6 @@
 class Api::V1::WorkshopsController < ApplicationController
   skip_before_action :verify_authenticity_token
-  before_action :authenticate_user
+  before_action :authenticate_user, except: [:validate]
   before_action :authorize_user_for_workshop, only: [:show, :members, :start_workshop, :complete_step]
   before_action :authorize_user_is_host, only: [:start_workshop, :complete_step]
 
@@ -175,11 +175,21 @@ class Api::V1::WorkshopsController < ApplicationController
       return render :json => { error: ["could not find workshop"] }, status: 404
     end
 
-    workshop_member = WorkshopMember
-    .where(user_id: @current_user.id, workshop_id: workshop.id)
+    signed_up_user = User
+    .where(email: params[:email])
+    .first
 
-    if !workshop_member
-      return render :json => { error: ["member is not part of this workshop"] }, status: 400
+    if !signed_up_user || signed_up_user.id != params[:user_id].to_i
+      return render :json => { error: ["member account cannot be found"] }, status: 400
+    end
+
+    workshop_member_email_signup = WorkshopMember
+    .where(workshop_id: workshop.id, email: params[:email], user_id: nil)
+    .first
+
+    if workshop_member_email_signup
+      workshop_member_email_signup
+      .update(user_id: signed_up_user.id)
     end
 
     return head 200
