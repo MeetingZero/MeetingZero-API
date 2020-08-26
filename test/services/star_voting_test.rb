@@ -93,4 +93,16 @@ class StarVotingTest < ActiveSupport::TestCase
       star_voting_results[:runoff_runner_up][:tally]
     )
   end
+
+  test "Only one vote submitted should prevent round 1" do
+    star_voting = StarVoting.new(4, "ProblemResponse")
+
+    star_voting_results = star_voting.calculate_votes
+
+    assert_nil(star_voting_results[:round_1_winner])
+
+    assert_equal(1, star_voting_results[:runoff_winner][:resource].id)
+
+    assert_equal(3, star_voting_results[:runoff_winner][:tally])
+  end
 end

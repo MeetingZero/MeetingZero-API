@@ -1,3 +1,5 @@
+# Standard vote with runoff
+
 one:
   workshop_id: 2
   user_id: 1
@@ -26,6 +28,8 @@ four:
   resource_id: 2
   vote_number: 1
 
+# Standard vote with runoff with different support levels
+
 five:
   workshop_id: 3
   user_id: 1
@@ -52,4 +56,13 @@ eight:
   user_id: 2
   resource_model_name: ProblemResponse
   resource_id: 2
+  vote_number: 3
+
+# Standard vote with only one vote
+
+nine:
+  workshop_id: 4
+  user_id: 1
+  resource_model_name: ProblemResponse
+  resource_id: 1
   vote_number: 3

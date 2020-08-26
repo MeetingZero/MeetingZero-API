@@ -23,6 +23,21 @@ class StarVoting
       resource_model_name: @resource_model_name
     )
 
+    # If there is just 1 vote then it wins
+    if resource_votes.length == 1
+      winning_resource_vote = resource_votes.first
+
+      new_star_voting_result = StarVotingResult
+      .create(
+        workshop_id: @workshop_id,
+        resource_model_name: @resource_model_name,
+        runoff_winner_resource_id: winning_resource_vote.resource_id,
+        runoff_winner_tally: winning_resource_vote.vote_number
+      )
+
+      return create_payload(new_star_voting_result)
+    end
+
     round_1_tally = {}
 
     # Build tally of sum of votes matched to resource_id's
@@ -39,6 +54,8 @@ class StarVoting
     .sort_by { |k, v| v }
     .reverse
     .take(2)
+
+    # TODO: If the two from the above array are equal, then trigger tie
 
     runoff_tally = {}
 
@@ -92,23 +109,36 @@ class StarVoting
   end
 
   def create_payload(star_voting_result)
-    return {
-      round_1_winner: {
+    payload = {}
+
+    if star_voting_result.round_1_winner_resource_id && star_voting_result.round_1_winner_tally
+      payload[:round_1_winner] = {
         resource: star_voting_result.resource_model_name.constantize.find(star_voting_result.round_1_winner_resource_id),
         tally: star_voting_result.round_1_winner_tally
-      },
-      round_1_runner_up: {
+      }
+    end
+
+    if star_voting_result.round_1_runner_up_resource_id && star_voting_result.round_1_runner_up_tally
+      payload[:round_1_runner_up] = {
         resource: star_voting_result.resource_model_name.constantize.find(star_voting_result.round_1_runner_up_resource_id),
         tally: star_voting_result.round_1_runner_up_tally
-      },
-      runoff_winner: {
+      }
+    end
+
+    if star_voting_result.runoff_winner_resource_id && star_voting_result.runoff_winner_tally
+      payload[:runoff_winner] = {
         resource: star_voting_result.resource_model_name.constantize.find(star_voting_result.runoff_winner_resource_id),
         tally: star_voting_result.runoff_winner_tally
-      },
-      runoff_runner_up: {
+      }
+    end
+
+    if star_voting_result.runoff_runner_up_resource_id && star_voting_result.runoff_runner_up_tally
+      payload[:runoff_runner_up] = {
         resource: star_voting_result.resource_model_name.constantize.find(star_voting_result.runoff_runner_up_resource_id),
         tally: star_voting_result.runoff_runner_up_tally
       }
-    }
+    end
+
+    return payload
   end
 end
