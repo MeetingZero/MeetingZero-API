@@ -202,6 +202,12 @@ class Api::V1::WorkshopsController < ApplicationController
     old_workshop_director = WorkshopDirector
     .get_current(params[:workshop_id])
 
+    # If this step has already been completed, short circuit
+    # This happens at the end of the workshop
+    if old_workshop_director.completed == true
+      return render :json => { workshop_complete: true }
+    end
+
     old_workshop_director.update(completed: true)
 
     new_workshop_director = WorkshopDirector

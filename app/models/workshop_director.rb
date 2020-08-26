@@ -13,7 +13,7 @@ class WorkshopDirector < ApplicationRecord
   end
 
   def self.get_current(workshop_token)
-    return Workshop
+    incomplete_director = Workshop
     .where(workshop_token: workshop_token)
     .first
     .workshop_directors
@@ -21,5 +21,17 @@ class WorkshopDirector < ApplicationRecord
     .where(completed: false)
     .order(id: :asc)
     .first
+
+    if !incomplete_director
+      return Workshop
+      .where(workshop_token: workshop_token)
+      .first
+      .workshop_directors
+      .includes(:workshop_stage, :workshop_stage_step)
+      .order(id: :asc)
+      .last
+    end
+
+    return incomplete_director
   end
 end
