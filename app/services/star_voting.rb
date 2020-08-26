@@ -17,24 +17,6 @@ class StarVoting
       return create_payload(star_voting_result)
     end
 
-    resource_records = @resource_model_name
-    .constantize
-    .where(workshop_id: @workshop_id)
-
-    # If there is only one record, don't bother calculating votes
-    # This is useful since the front end will trigger immediate calculation of votes if there is only one record
-    if resource_records.length === 1
-      new_star_voting_result = StarVotingResult
-      .create(
-        workshop_id: @workshop_id,
-        resource_model_name: @resource_model_name,
-        runoff_winner_resource_id: resource_records.first.id,
-        runoff_winner_tally: 5
-      )
-
-      return create_payload(new_star_voting_result)
-    end
-
     resource_votes = StarVotingVote
     .where(
       workshop_id: @workshop_id,
