@@ -4,6 +4,12 @@ class Api::V1::WorkshopsController < ApplicationController
   before_action :authorize_user_for_workshop, only: [:show, :members, :start_workshop, :complete_step]
   before_action :authorize_user_is_host, only: [:start_workshop, :complete_step]
 
+  def index
+    render :json => WorkshopMember
+    .where(user_id: @current_user.id)
+    .as_json(include: [:workshop])
+  end
+  
   def create
     ActiveRecord::Base.transaction do
       begin
