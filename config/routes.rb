@@ -55,6 +55,8 @@ Rails.application.routes.draw do
             post "/calculate-votes" => "star_voting_votes#calculate_votes"
           end
         end
+
+        resources :star_voting_results, only: [:create]
       end
     end
   end
