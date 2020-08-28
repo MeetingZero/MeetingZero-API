@@ -19,6 +19,7 @@ Rails.application.routes.draw do
         put "/start" => "workshops#start_workshop"
         post "/validate" => "workshops#validate"
         put "/complete-step" => "workshops#complete_step"
+        get "/summary" => "workshops#summary"
 
         resources :director, controller: :workshop_directors do
           collection do

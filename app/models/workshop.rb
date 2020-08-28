@@ -22,4 +22,21 @@ class Workshop < ApplicationRecord
     .where(workshop_token: workshop_token)
     .first
   end
+
+  def self.get_summary(workshop_id)
+    payload = {}
+
+    winning_problem_response_voting_result = StarVotingResult
+    .where(
+      workshop_id: workshop_id,
+      resource_model_name: "ProblemResponse"
+    )
+    .first
+
+    if winning_problem_response_voting_result && winning_problem_response_voting_result.runoff_winner_resource_id
+      payload[:winning_problem_response] = ProblemResponse.find(winning_problem_response_voting_result.runoff_winner_resource_id)
+    end
+
+    return payload
+  end
 end
