@@ -48,8 +48,24 @@ class Workshop < ApplicationRecord
     return payload
   end
 
+  def self.WHATS_WORKING(workshop_id)
+    payload = {}
+
+    what_is_working_responses = WhatIsWorkingResponse
+    .where(workshop_id: workshop_id)
+
+    payload[:what_is_working_responses] = what_is_working_responses
+
+    return payload
+  end
+
   def self.PROBLEMS(workshop_id)
     payload = {}
+
+    problem_responses = ProblemResponse
+    .where(workshop_id: workshop_id)
+
+    payload[:problem_responses] = problem_responses
 
     winning_problem_response_voting_result = StarVotingResult
     .where(
@@ -59,8 +75,78 @@ class Workshop < ApplicationRecord
     .first
 
     if winning_problem_response_voting_result && winning_problem_response_voting_result.runoff_winner_resource_id
-      payload[:winning_problem_response] = ProblemResponse.find(winning_problem_response_voting_result.runoff_winner_resource_id)
+      payload[:winning_problem] = ProblemResponse.find(winning_problem_response_voting_result.runoff_winner_resource_id)
     end
+
+    return payload
+  end
+
+  def self.REFRAME_PROBLEM(workshop_id)
+    payload = {}
+
+    reframe_problem_responses = ReframeProblemResponse
+    .where(workshop_id: workshop_id)
+
+    payload[:reframe_problem_responses] = reframe_problem_responses
+
+    winning_reframed_problem_voting_result = StarVotingResult
+    .where(
+      workshop_id: workshop_id,
+      resource_model_name: "ReframeProblemResponse"
+    )
+    .first
+
+    if winning_reframed_problem_voting_result && winning_reframed_problem_voting_result.runoff_winner_resource_id
+      payload[:winning_reframed_problem] = ReframeProblemResponse.find(winning_reframed_problem_voting_result.runoff_winner_resource_id)
+    end
+
+    return payload
+  end
+
+  def self.OPPORTUNITY_QUESTION(workshop_id)
+    payload = {}
+
+    opportunity_question_response = OpportunityQuestionResponse
+    .where(workshop_id: workshop_id)
+    .first
+
+    if opportunity_question_response
+      payload[:opportunity_question] = opportunity_question_response
+    end
+
+    return payload
+  end
+  
+  def self.SOLUTIONS(workshop_id)
+    payload = {}
+
+    solution_responses = SolutionResponse
+    .where(workshop_id: workshop_id)
+    .as_json(include: [:solution_response_priorities])
+
+    payload[:solution_responses] = solution_responses
+
+    return payload
+  end
+
+  def self.EXPERIMENTS(workshop_id)
+    payload = {}
+
+    experiment_hypothesis = ExperimentHypothesis
+    .where(workshop_id: workshop_id)
+    .first
+
+    if experiment_hypothesis
+      payload[:experiment_hypothesis] = experiment_hypothesis
+    end
+
+    experiment_tasks = ExperimentTask
+    .where(
+      workshop_id: workshop_id
+    )
+    .as_json(include: [:experiment_task_assignments])
+
+    payload[:experiment_tasks] = experiment_tasks
 
     return payload
   end

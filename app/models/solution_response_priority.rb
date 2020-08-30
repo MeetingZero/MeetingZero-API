@@ -1,4 +1,5 @@
 class SolutionResponsePriority < ApplicationRecord
+  belongs_to :solution_response
   before_create :assign_assessment_category
 
   def assign_assessment_category
