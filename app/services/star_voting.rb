@@ -55,6 +55,19 @@ class StarVoting
     .reverse
     .take(2)
 
+    # If there is only one winner from round 1, short circuit
+    if round_1_winners.length == 1
+      new_star_voting_result = StarVotingResult
+      .create(
+        workshop_id: @workshop_id,
+        resource_model_name: @resource_model_name,
+        runoff_winner_resource_id: round_1_winners[0][0],
+        runoff_winner_tally: round_1_winners[0][1]
+      )
+
+      return create_payload(new_star_voting_result)
+    end
+
     # TODO: If the two from the above array are equal, then trigger tie
 
     runoff_tally = {}

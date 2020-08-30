@@ -26,6 +26,31 @@ class Workshop < ApplicationRecord
   def self.get_summary(workshop_id)
     payload = {}
 
+    workshop_directors = WorkshopDirector
+    .where(workshop_id: workshop_id)
+
+    workshop_directors = workshop_directors.uniq { |wd| wd.workshop_stage_id }
+
+    workshop_directors.each do |wd|
+      workshop_stage_key = WorkshopStage
+      .find(wd.workshop_stage_id)
+      .key
+
+      if Workshop.methods.include? workshop_stage_key.to_sym
+        section_payload = Workshop
+        .method(workshop_stage_key.to_sym)
+        .call(workshop_id)
+
+        payload.merge! section_payload
+      end
+    end
+
+    return payload
+  end
+
+  def self.PROBLEMS(workshop_id)
+    payload = {}
+
     winning_problem_response_voting_result = StarVotingResult
     .where(
       workshop_id: workshop_id,
