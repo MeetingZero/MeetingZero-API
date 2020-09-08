@@ -6,6 +6,7 @@ class CreateSolutionResponses < ActiveRecord::Migration[6.0]
       t.text :response_text
       t.float :average_impact_level
       t.float :average_effort_level
+      t.string :assessment_category
 
       t.timestamps
     end
