@@ -40,6 +40,7 @@ class SolutionResponse < ApplicationRecord
     end
 
     run_1 = SolutionResponse
+    .where(workshop_id: workshop_id)
     .where("average_impact_level > 5 AND average_effort_level <= 5")
 
     if run_1.length > 0
@@ -47,6 +48,7 @@ class SolutionResponse < ApplicationRecord
     end
 
     run_2 = SolutionResponse
+    .where(workshop_id: workshop_id)
     .where("average_impact_level >= 4 AND average_effort_level <= 5")
 
     if run_2.length > 0
@@ -54,6 +56,7 @@ class SolutionResponse < ApplicationRecord
     end
 
     run_3 = SolutionResponse
+    .where(workshop_id: workshop_id)
     .where("average_impact_level >= 4 AND average_effort_level <= 6")
 
     if run_3.length > 0
