@@ -6,7 +6,6 @@ class CreateSolutionResponsePriorities < ActiveRecord::Migration[6.0]
       t.integer :solution_response_id
       t.integer :impact_level
       t.integer :effort_level
-      t.string :assessment_category
 
       t.timestamps
     end

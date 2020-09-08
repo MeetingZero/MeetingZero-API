@@ -37,6 +37,7 @@ Rails.application.routes.draw do
 
         resources :solutions do
           post "/prioritize" => "solutions#prioritize"
+          get "/voting" => "solutions#get_solutions_for_voting"
         end
 
         resources :experiments do

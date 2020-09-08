@@ -103,4 +103,8 @@ class Api::V1::SolutionsController < ApplicationController
 
     return render :json => solutions_records, status: 201
   end
+
+  def get_solutions_for_voting
+    
+  end
 end
