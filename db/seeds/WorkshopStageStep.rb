@@ -132,6 +132,17 @@ WorkshopStage
 )
 
 WorkshopStage
+.where(key: "SOLUTIONS")
+.first
+.workshop_stage_steps
+.create(
+  key: "SOLUTIONS_REVIEW_VOTES",
+  name: "Review Votes",
+  default_time_limit: 120,
+  description: "Solutions review votes"
+)
+
+WorkshopStage
 .where(key: "EXPERIMENTS")
 .first
 .workshop_stage_steps
