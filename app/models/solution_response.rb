@@ -2,6 +2,8 @@ class SolutionResponse < ApplicationRecord
   has_many :solution_response_priorities, dependent: :destroy
 
   def self.get_solutions_for_voting(workshop_id)
+    priorities_map = {}
+
     all_solutions = SolutionResponse
     .where(workshop_id: workshop_id)
     .includes(:solution_response_priorities)
@@ -31,6 +33,24 @@ class SolutionResponse < ApplicationRecord
       solution_average_effort_level = solution_effort_level_sum.to_f / solution.solution_response_priorities.length
 
       solution.update(average_effort_level: solution_average_effort_level)
+
+      assessment_category = nil
+
+      if solution_average_impact_level > 5 && solution_average_effort_level > 5
+        assessment_category = "Make a Project"
+      elsif solution_average_impact_level > 5 && solution_average_effort_level <= 5
+        assessment_category = "Do Now"
+      elsif solution_average_impact_level <= 5 && solution_average_effort_level > 5
+        assessment_category = "Forget for Now"
+      elsif solution_average_impact_level <= 5 && solution_average_effort_level <= 5
+        assessment_category = "Make a Task"
+      end
+
+      if priorities_map[assessment_category]
+        priorities_map[assessment_category].push(solution)
+      else
+        priorities_map[assessment_category] = [solution]
+      end
     end
 
     return all_solutions
