@@ -4,7 +4,8 @@ class CreateSolutionResponses < ActiveRecord::Migration[6.0]
       t.integer :workshop_id
       t.integer :user_id
       t.text :response_text
-      t.string :assessment_category
+      t.float :average_impact_level
+      t.float :average_effort_level
 
       t.timestamps
     end
