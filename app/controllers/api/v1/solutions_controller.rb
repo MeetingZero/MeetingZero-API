@@ -106,7 +106,7 @@ class Api::V1::SolutionsController < ApplicationController
 
   def get_solutions_for_voting
     solutions_for_voting = SolutionResponse
-    .get_solutions_for_voting(@workshop.id)
+    .get_solutions_for_voting(@current_user.id, @workshop.id)
 
     return render :json => solutions_for_voting
   end

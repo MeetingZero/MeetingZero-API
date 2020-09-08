@@ -69,7 +69,6 @@ ActiveRecord::Schema.define(version: 2020_08_13_210947) do
     t.integer "solution_response_id"
     t.integer "impact_level"
     t.integer "effort_level"
-    t.string "assessment_category"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
@@ -78,6 +77,9 @@ ActiveRecord::Schema.define(version: 2020_08_13_210947) do
     t.integer "workshop_id"
     t.integer "user_id"
     t.text "response_text"
+    t.float "average_impact_level"
+    t.float "average_effort_level"
+    t.string "assessment_category"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
