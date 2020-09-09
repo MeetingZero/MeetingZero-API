@@ -126,6 +126,17 @@ class Workshop < ApplicationRecord
 
     payload[:solution_responses] = solution_responses
 
+    winning_solution_voting_result = StarVotingResult
+    .where(
+      workshop_id: workshop_id,
+      resource_model_name: "SolutionResponse"
+    )
+    .first
+
+    if winning_solution_voting_result && winning_solution_voting_result.runoff_winner_resource_id
+      payload[:winning_solution] = SolutionResponse.find(winning_solution_voting_result.runoff_winner_resource_id)
+    end
+
     return payload
   end
 
