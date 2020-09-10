@@ -211,6 +211,21 @@ class Api::V1::WorkshopsController < ApplicationController
     # If this step has already been completed, short circuit
     # This happens at the end of the workshop
     if old_workshop_director.completed == true
+      workshop_members = WorkshopMember
+      .where(
+        workshop_id: @workshop.id
+      )
+
+      # Send all of the members the feedback form via email
+      workshop_members.each do |member|
+        WorkshopMailer
+        .request_feedback(
+          User.find(member.user_id),
+          workshop
+        )
+        .deliver_later
+      end
+
       return render :json => { workshop_complete: true }
     end
 

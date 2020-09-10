@@ -13,4 +13,11 @@ class WorkshopMailer < ApplicationMailer
 
     mail(to: email, subject: "MeetingZero - Join Workshop")
   end
+
+  def request_feedback(user, workshop)
+    @user = user
+    @workshop = workshop
+
+    mail(to: user.email, subject: "MeetingZero - Feedback on Your Workshop")
+  end
 end
