@@ -18,6 +18,9 @@ development:
 staging:
   <<: *default
   database: meetingzero_staging
+  username: postgres
+  password: <%= Rails.application.credentials.rds_master_password %>
+  host: <%= Rails.application.credentials.rds_endpoint %>
 
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".
