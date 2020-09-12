@@ -12,6 +12,11 @@ class SolutionResponse < ApplicationRecord
         next
       end
 
+      # If there are no priorities for a specific solution we should skip it
+      if solution.solution_response_priorities.length === 0
+        next
+      end
+
       solution_average_impact_level = solution
       .solution_response_priorities
       .average(:impact_level)
