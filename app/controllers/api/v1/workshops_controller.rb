@@ -218,12 +218,18 @@ class Api::V1::WorkshopsController < ApplicationController
 
       # Send all of the members the feedback form via email
       workshop_members.each do |member|
-        WorkshopMailer
-        .request_feedback(
-          User.find(member.user_id),
-          workshop
-        )
-        .deliver_later
+        user = User
+        .where(id: member.user_id)
+        .first
+
+        if user
+          WorkshopMailer
+          .request_feedback(
+            user,
+            workshop
+          )
+          .deliver_later
+        end
       end
 
       return render :json => { workshop_complete: true }
