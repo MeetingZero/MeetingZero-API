@@ -216,7 +216,21 @@ class Api::V1::WorkshopsController < ApplicationController
         workshop_id: @workshop.id
       )
 
-      # Send all of the members the feedback form via email
+      return render :json => { workshop_complete: true }
+    end
+
+    old_workshop_director.update(completed: true)
+
+    new_workshop_director = WorkshopDirector
+    .get_current(params[:workshop_id])
+
+    # Send all of the members the feedback form via email if workshop is complete
+    if new_workshop_director.completed == true
+      workshop_members = WorkshopMember
+      .where(
+        workshop_id: @workshop.id
+      )
+      
       workshop_members.each do |member|
         user = User
         .where(id: member.user_id)
@@ -231,14 +245,7 @@ class Api::V1::WorkshopsController < ApplicationController
           .deliver_later
         end
       end
-
-      return render :json => { workshop_complete: true }
     end
-
-    old_workshop_director.update(completed: true)
-
-    new_workshop_director = WorkshopDirector
-    .get_current(params[:workshop_id])
 
     current_stage_step = WorkshopStageStep
     .find(new_workshop_director.workshop_stage_step_id)
