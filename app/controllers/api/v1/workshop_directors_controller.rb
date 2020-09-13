@@ -20,11 +20,11 @@ class Api::V1::WorkshopDirectorsController < ApplicationController
   def add_time_to_current
     seconds_to_add = params[:seconds_to_add].to_i
 
-    # Generate an expire time from UTC + number of seconds given to this new stage step
-    expire_time = Time.now.utc + seconds_to_add
-
     current_workshop_director = WorkshopDirector
     .get_current(params[:workshop_id])
+
+    # Generate an expire time from UTC + number of seconds given to this new stage step
+    expire_time = current_workshop_director.workshop_stage_step_expire_time + seconds_to_add.seconds
 
     # New director stage step gets an time expiration
     current_workshop_director
