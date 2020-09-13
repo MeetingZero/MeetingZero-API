@@ -24,6 +24,7 @@ Rails.application.routes.draw do
         resources :director, controller: :workshop_directors do
           collection do
             get "/current" => "workshop_directors#current"
+            put "/add_time_to_current" => "workshop_directors#add_time_to_current"
           end
         end
 
