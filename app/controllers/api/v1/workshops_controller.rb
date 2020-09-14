@@ -245,6 +245,15 @@ class Api::V1::WorkshopsController < ApplicationController
           .deliver_later
         end
       end
+
+      # Broadcast updated director to the channel
+      WorkshopChannel
+      .broadcast_to(
+        workshop,
+        current_workshop_director: new_workshop_director.as_json(include: [:workshop_stage, :workshop_stage_step])
+      )
+
+      return head 200
     end
 
     current_stage_step = WorkshopStageStep
