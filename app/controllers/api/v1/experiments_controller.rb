@@ -156,4 +156,30 @@ class Api::V1::ExperimentsController < ApplicationController
 
     render :json => experiment_tasks, include: [:experiment_task_assignments]
   end
+
+  def destroy_task
+    experiment_task = ExperimentTask.find(params[:task_id])
+
+    if experiment_task.user_id != @current_user.id
+      return render :json => { error: "You do not have permission to remove this task" }, status: 401
+    end
+
+    experiment_task.destroy
+
+    experiment_tasks = ExperimentTask
+    .where(
+      workshop_id: @workshop.id
+    )
+
+    # Broadcast experiment tasks to the channel
+    WorkshopChannel
+    .broadcast_to(
+      @workshop,
+      experiment_tasks: experiment_tasks.as_json(
+        include: [:experiment_task_assignments]
+      )
+    )
+
+    return render :json => experiment_tasks, include: [:experiment_task_assignments]
+  end
 end
