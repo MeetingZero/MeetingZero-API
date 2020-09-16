@@ -160,7 +160,7 @@ WorkshopStage
 .workshop_stage_steps
 .create(
   key: "EXPERIMENTS_OWNERS",
-  name: "Owner(s)",
+  name: "Owners",
   default_time_limit: 600,
   description: "Experiments owners",
   discussion_allowed: true
