@@ -13,10 +13,14 @@ class Api::V1::ReframeProblemController < ApplicationController
       .first
     elsif params[:voting]
       original_problem_record = ReframeProblemResponse
-      .where(workshop_id: @workshop.id)
-      .where("meta_data->>'original_problem' = ?", "true")
+      .where(
+        workshop_id: @workshop.id,
+        is_original_problem: true
+      )
       .first
 
+      # If the original problem is not part of the reframe dataset, add it
+      # This is so that we can mix in the original problem with the reframed problems for voting purposes
       if !original_problem_record
         winning_problem_result = StarVotingResult
         .where(
@@ -34,10 +38,8 @@ class Api::V1::ReframeProblemController < ApplicationController
             workshop_id: @workshop.id,
             user_id: winning_problem_response.user_id,
             response_text: winning_problem_response.response_text,
-            meta_data: {
-              original_problem: true,
-              problem_response_id: winning_problem_response.id
-            }
+            is_original_problem: true,
+            original_problem_response_id: winning_problem_response.id
           )
         end
       end

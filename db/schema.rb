@@ -62,7 +62,8 @@ ActiveRecord::Schema.define(version: 2020_08_13_210947) do
     t.integer "workshop_id"
     t.integer "user_id"
     t.text "response_text"
-    t.jsonb "meta_data"
+    t.boolean "is_original_problem", default: false
+    t.integer "original_problem_response_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
