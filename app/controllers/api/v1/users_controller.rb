@@ -84,7 +84,7 @@ class Api::V1::UsersController < ApplicationController
 
     UserMailer
     .forgot_password(user)
-    .deliver_now
+    .deliver_later
 
     head 201
   end
