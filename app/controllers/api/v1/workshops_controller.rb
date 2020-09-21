@@ -92,6 +92,11 @@ class Api::V1::WorkshopsController < ApplicationController
           user_id: @current_user.id
         )
 
+        # Send host their customized workshop email
+        WorkshopMailer
+        .new_workshop_host(@current_user, new_workshop)
+        .deliver_later
+
         return render :json => new_workshop, status: 201
       rescue
         render :json => { error: ["could not create workshop"] }, status: 400

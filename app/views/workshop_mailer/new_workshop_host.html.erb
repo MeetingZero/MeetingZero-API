@@ -1,0 +1,33 @@
+<img src="https://meetingzero.s3-us-west-2.amazonaws.com/logo.jpg" style="display: block; width: 100%; max-width: 100px; margin-left: auto; margin-right: auto; margin-top: 20px; margin-bottom: 20px;" />
+
+<p>
+  Hello <%= @user.first_name %>,
+</p>
+
+<p>
+  You just created a workshop:
+</p>
+
+<p>
+  <%= @workshop.purpose %>
+</p>
+
+<p>
+  Please use this ID to enter the workshop: <%= @workshop.workshop_token %>
+</p>
+
+<p style="font-weight: bold">
+  Since this is an MVP, we don't have calendar functionality yet. Please remember to send out a calendar invitation to all of the team members you invited to this workshop.
+</p>
+
+<p>
+  Get ready to become a problem-solving and decision-making superhero.
+</p>
+
+<p>
+  Enjoy!
+</p>
+
+<p>
+  The MeetingZero Team
+</p>
