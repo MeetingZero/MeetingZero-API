@@ -16,7 +16,7 @@ WorkshopStage
 .create(
   key: "WHATS_WORKING_REVIEW",
   name: "Review",
-  default_time_limit: 120,
+  default_time_limit: 60,
   description: "What's working review"
 )
 
@@ -38,7 +38,7 @@ WorkshopStage
 .create(
   key: "PROBLEMS_VOTE",
   name: "Vote",
-  default_time_limit: 300,
+  default_time_limit: 180,
   description: "Problem voting"
 )
 
@@ -49,7 +49,7 @@ WorkshopStage
 .create(
   key: "PROBLEMS_REVIEW_VOTES",
   name: "Review Votes",
-  default_time_limit: 120,
+  default_time_limit: 30,
   description: "Review problem votes"
 )
 
@@ -60,7 +60,7 @@ WorkshopStage
 .create(
   key: "REFRAME_PROBLEM_RESPONSE",
   name: "Responses",
-  default_time_limit: 300,
+  default_time_limit: 180,
   description: "Reframe problem responses"
 )
 
@@ -71,7 +71,7 @@ WorkshopStage
 .create(
   key: "REFRAME_PROBLEM_VOTE",
   name: "Vote",
-  default_time_limit: 240,
+  default_time_limit: 180,
   description: "Reframe problem vote"
 )
 
@@ -82,7 +82,7 @@ WorkshopStage
 .create(
   key: "REFRAME_PROBLEM_REVIEW_VOTES",
   name: "Review Votes",
-  default_time_limit: 120,
+  default_time_limit: 30,
   description: "Reframe problem review votes"
 )
 
@@ -93,7 +93,7 @@ WorkshopStage
 .create(
   key: "OPPORTUNITY_QUESTION_RESPONSE",
   name: "Response",
-  default_time_limit: 120,
+  default_time_limit: 180,
   description: "Opportunity question response",
   discussion_allowed: true
 )
@@ -105,7 +105,7 @@ WorkshopStage
 .create(
   key: "SOLUTIONS_RESPONSES",
   name: "Responses",
-  default_time_limit: 300,
+  default_time_limit: 240,
   description: "Solutions responses"
 )
 
@@ -116,7 +116,7 @@ WorkshopStage
 .create(
   key: "SOLUTIONS_IMPACT_EFFORT",
   name: "Impact/Effort",
-  default_time_limit: 300,
+  default_time_limit: 480,
   description: "Solutions impact and effort"
 )
 
@@ -127,7 +127,7 @@ WorkshopStage
 .create(
   key: "SOLUTIONS_VOTE",
   name: "Vote",
-  default_time_limit: 300,
+  default_time_limit: 180,
   description: "Solutions vote"
 )
 
@@ -138,7 +138,7 @@ WorkshopStage
 .create(
   key: "SOLUTIONS_REVIEW_VOTES",
   name: "Review Votes",
-  default_time_limit: 120,
+  default_time_limit: 30,
   description: "Solutions review votes"
 )
 
