@@ -117,6 +117,11 @@ class Api::V1::WorkshopsController < ApplicationController
       workshop.merge!({ is_host: false })
     end
 
+    # Add total time of workshop to payload
+    workshop.merge!({
+      total_time: WorkshopStageStep.all.sum(:default_time_limit)
+    })
+
     return render :json => workshop
   end
 
