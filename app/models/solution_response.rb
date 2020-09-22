@@ -67,6 +67,22 @@ class SolutionResponse < ApplicationRecord
     if run_3.length > 0
       return self.create_payload(run_3, user_id, workshop_id)
     end
+
+    run_4 = SolutionResponse
+    .where(workshop_id: workshop_id)
+    .where("average_impact_level <= 5 AND average_effort_level <= 5")
+
+    if run_4.length > 0
+      return self.create_payload(run_4, user_id, workshop_id)
+    end
+
+    run_5 = SolutionResponse
+    .where(workshop_id: workshop_id)
+    .where("average_impact_level > 5 AND average_effort_level > 5")
+
+    if run_5.length > 0
+      return self.create_payload(run_5, user_id, workshop_id)
+    end
   end
 
   def self.create_payload(results, user_id, workshop_id)
