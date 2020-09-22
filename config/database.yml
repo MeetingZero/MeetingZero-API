@@ -32,3 +32,6 @@ test:
 production:
   <<: *default
   database: meetingzero_production
+  username: postgres
+  password: <%= Rails.application.credentials.rds_master_password %>
+  host: <%= Rails.application.credentials.rds_endpoint %>
