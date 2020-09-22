@@ -165,6 +165,29 @@ class Api::V1::WorkshopsController < ApplicationController
         workshop = Workshop
         .find_by_token(params[:workshop_id])
 
+        # Remove all workshop members that haven't created accounts
+        workshop_members_without_signup = WorkshopMember
+        .where(
+          workshop_id: workshop.id,
+          user_id: nil
+        )
+        .where.not(email: nil)
+
+        workshop_members_without_signup.each do |pm|
+          potential_user = User
+          .where(email: pm.email)
+          .first
+
+          if potential_user
+            pm.update(
+              user_id: potential_user.id,
+              email: nil
+            )
+          else
+            pm.destroy
+          end
+        end
+
         # Add time that workshop started
         workshop.update(started_at: Time.now.utc)
 
@@ -205,7 +228,10 @@ class Api::V1::WorkshopsController < ApplicationController
 
     if workshop_member_email_signup
       workshop_member_email_signup
-      .update(user_id: signed_up_user.id)
+      .update(
+        user_id: signed_up_user.id,
+        email: nil
+      )
     end
 
     return head 200
