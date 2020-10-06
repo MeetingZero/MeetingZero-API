@@ -45,7 +45,8 @@ class Api::V1::UsersController < ApplicationController
             id: user.id,
             first_name: user.first_name,
             last_name: user.last_name,
-            email: user.email
+            email: user.email,
+            exp: Time.now.to_i + 10
           },
           Rails.application.credentials.jwt_secret,
           'HS256'
