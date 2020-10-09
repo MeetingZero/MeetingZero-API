@@ -13,6 +13,8 @@ gem 'resque-pool'
 
 gem 'pg'
 
+gem 'sentry-raven'
+
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 6.0.3', '>= 6.0.3.1'
 # Use sqlite3 as the database for Active Record
