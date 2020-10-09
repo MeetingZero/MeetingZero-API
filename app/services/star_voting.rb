@@ -68,7 +68,29 @@ class StarVoting
       return create_payload(new_star_voting_result)
     end
 
-    # TODO: If the two from the above array are equal, then trigger tie
+    # If both resources from round 1 have the same number of votes, take the host vote as winner
+    if round_1_winners[0][1] == round_1_winners[1][1]
+      workshop = Workshop.find(@workshop_id)
+
+      host_result = StarVotingVote
+      .where(
+        workshop_id: @workshop_id,
+        user_id: workshop.host_id,
+        resource_model_name: @resource_model_name
+      )
+      .order(vote_number: :desc)
+      .first
+
+      new_star_voting_result = StarVotingResult
+      .create(
+        workshop_id: @workshop_id,
+        resource_model_name: @resource_model_name,
+        runoff_winner_resource_id: host_result.resource_id,
+        runoff_winner_tally: host_result.vote_number
+      )
+
+      return create_payload(new_star_voting_result)
+    end
 
     runoff_tally = {}
 
