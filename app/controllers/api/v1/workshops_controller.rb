@@ -300,7 +300,7 @@ class Api::V1::WorkshopsController < ApplicationController
         end
       end
 
-      # Broadcast updated director to the channel
+      # Broadcast updated current director to the channel
       WorkshopChannel
       .broadcast_to(
         workshop,

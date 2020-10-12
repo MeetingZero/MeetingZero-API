@@ -13,6 +13,16 @@ class WorkshopChannel < ApplicationCable::Channel
     )
     .first
     .update(online: true)
+
+    workshop_director = WorkshopDirector
+    .get_current(workshop.workshop_token)
+
+    # Broadcast current director to the channel
+    WorkshopChannel
+    .broadcast_to(
+      workshop,
+      current_workshop_director: workshop_director.as_json(include: [:workshop_stage, :workshop_stage_step])
+    )
   end
 
   def unsubscribed
