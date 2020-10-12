@@ -99,7 +99,7 @@ class Api::V1::WorkshopsController < ApplicationController
 
         return render :json => new_workshop, status: 201
       rescue
-        render :json => { error: ["could not create workshop"] }, status: 400
+        render :json => { error: ["Could not create workshop"] }, status: 400
         raise ActiveRecord::Rollback
       end
     end
@@ -200,7 +200,7 @@ class Api::V1::WorkshopsController < ApplicationController
 
         return head 200
       rescue
-        render :json => { error: ["could not start workshop"] }, status: 400
+        render :json => { error: ["Could not start workshop"] }, status: 400
         raise ActiveRecord::Rollback
       end
     end
@@ -212,7 +212,7 @@ class Api::V1::WorkshopsController < ApplicationController
 
     # If workshop cannot be found, render error
     if !workshop
-      return render :json => { error: ["could not find workshop"] }, status: 404
+      return render :json => { error: ["Could not find workshop"] }, status: 404
     end
 
     signed_up_user = User
@@ -221,7 +221,7 @@ class Api::V1::WorkshopsController < ApplicationController
 
     # If no user is signed up with this email, render error
     if !signed_up_user || signed_up_user.id != params[:user_id].to_i
-      return render :json => { error: ["member account cannot be found"] }, status: 400
+      return render :json => { error: ["Member account cannot be found"] }, status: 400
     end
 
     workshop_member_email_signup = WorkshopMember
