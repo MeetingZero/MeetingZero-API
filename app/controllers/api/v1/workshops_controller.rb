@@ -1,6 +1,6 @@
 class Api::V1::WorkshopsController < ApplicationController
   skip_before_action :verify_authenticity_token
-  before_action :authenticate_user, except: [:validate]
+  before_action :authenticate_user
   before_action :authorize_user_for_workshop, only: [:show, :members, :start_workshop, :complete_step, :summary]
   before_action :authorize_user_is_host, only: [:start_workshop, :complete_step]
 
@@ -210,6 +210,7 @@ class Api::V1::WorkshopsController < ApplicationController
     workshop = Workshop
     .find_by_token(params[:workshop_id])
 
+    # If workshop cannot be found, render error
     if !workshop
       return render :json => { error: ["could not find workshop"] }, status: 404
     end
@@ -218,12 +219,17 @@ class Api::V1::WorkshopsController < ApplicationController
     .where(email: params[:email])
     .first
 
+    # If no user is signed up with this email, render error
     if !signed_up_user || signed_up_user.id != params[:user_id].to_i
       return render :json => { error: ["member account cannot be found"] }, status: 400
     end
 
     workshop_member_email_signup = WorkshopMember
-    .where(workshop_id: workshop.id, email: params[:email], user_id: nil)
+    .where(
+      workshop_id: workshop.id,
+      email: params[:email],
+      user_id: nil
+    )
     .first
 
     if workshop_member_email_signup
@@ -232,6 +238,18 @@ class Api::V1::WorkshopsController < ApplicationController
         user_id: signed_up_user.id,
         email: nil
       )
+    end
+
+    workshop_member = WorkshopMember
+    .where(
+      workshop_id: workshop.id,
+      user_id: signed_up_user.id
+    )
+    .first
+
+    # Check to make sure user is a member of the workshop they are trying to join
+    if !workshop_member
+      return render :json => { error: ["User is not a member of this workshop. Please check that you are using the correct token."] }, status: 400
     end
 
     return head 200
