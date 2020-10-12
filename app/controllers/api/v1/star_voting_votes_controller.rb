@@ -14,6 +14,15 @@ class Api::V1::StarVotingVotesController < ApplicationController
         resource_model_name: params[:resource_model_name]
       )
       .destroy_all
+
+      # Save negative vote for other resource if exclusive
+      StarVotingVote.create(
+        workshop_id: @workshop.id,
+        user_id: @current_user.id,
+        resource_model_name: params[:resource_model_name],
+        resource_id: params[:other_resource_id],
+        vote_number: 1
+      )
     end
 
     StarVotingVote.create(

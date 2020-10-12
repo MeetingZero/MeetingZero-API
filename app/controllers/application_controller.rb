@@ -39,7 +39,7 @@ class ApplicationController < ActionController::Base
     .first
 
     if !workshop_member
-      return render :json => { error: ["user is not part of this workshop"] }, status: 401
+      return render :json => { error: ["User is not a member of this workshop"] }, status: 401
     end
   end
 
@@ -55,7 +55,7 @@ class ApplicationController < ActionController::Base
     .first
 
     if workshop.host_id != @current_user.id
-      return render :json => { error: ["user is not the host"] }, status: 401
+      return render :json => { error: ["User is not the host"] }, status: 401
     end
   end
 end
