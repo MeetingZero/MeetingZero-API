@@ -15,7 +15,7 @@ gem 'pg'
 
 gem 'sentry-raven'
 
-gem 'passenger'
+gem 'passenger', '>= 5.3.2', require: 'phusion_passenger/rack_handler'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 6.0.3', '>= 6.0.3.1'
