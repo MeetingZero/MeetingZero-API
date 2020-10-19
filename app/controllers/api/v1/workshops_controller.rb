@@ -8,6 +8,7 @@ class Api::V1::WorkshopsController < ApplicationController
     render :json => WorkshopMember
     .where(user_id: @current_user.id)
     .as_json(include: [:workshop])
+    .sort_by { |wm| -wm["workshop"]["id"] }
   end
   
   def create
