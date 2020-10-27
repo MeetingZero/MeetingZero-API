@@ -106,7 +106,7 @@ class StarVotingTest < ActiveSupport::TestCase
     assert_equal(3, star_voting_results[:runoff_winner][:tally])
   end
 
-  test "No votes should run catch all" do
+  test "No votes should save a blank result" do
     star_voting = StarVoting.new(10, "ProblemResponse")
 
     star_voting_results = star_voting.calculate_votes
