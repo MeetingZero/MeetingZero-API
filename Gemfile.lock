@@ -59,6 +59,15 @@ GEM
     addressable (2.7.0)
       public_suffix (>= 2.0.2, < 5.0)
     ansi (1.5.0)
+    anycable (1.0.1)
+      anyway_config (>= 1.4.2)
+      grpc (~> 1.17)
+    anycable-rails (1.0.4)
+      actioncable (>= 5)
+      anycable (>= 1.0.0)
+      globalid
+    anyway_config (2.0.6)
+      ruby-next-core (>= 0.8.0)
     bcrypt (3.1.15)
     bindex (0.8.1)
     bootsnap (1.4.7)
@@ -82,6 +91,12 @@ GEM
     ffi (1.13.1)
     globalid (0.4.2)
       activesupport (>= 4.2.0)
+    google-protobuf (3.13.0)
+    googleapis-common-protos-types (1.0.5)
+      google-protobuf (~> 3.11)
+    grpc (1.32.0)
+      google-protobuf (~> 3.13)
+      googleapis-common-protos-types (~> 1.0)
     i18n (1.8.5)
       concurrent-ruby (~> 1.0)
     jbuilder (2.10.0)
@@ -172,6 +187,7 @@ GEM
     resque-pool (0.7.1)
       rake (>= 10.0, < 14.0)
       resque (>= 1.22, < 3)
+    ruby-next-core (0.10.5)
     ruby-progressbar (1.10.1)
     ruby2_keywords (0.0.2)
     rubyzip (2.3.0)
@@ -238,6 +254,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  anycable-rails (~> 1.0)
   bcrypt (~> 3.1.7)
   bootsnap (>= 1.4.2)
   byebug

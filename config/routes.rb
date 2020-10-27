@@ -1,7 +1,6 @@
 require "resque/server"
 
 Rails.application.routes.draw do
-  mount ActionCable.server => "/cable"
   mount Resque::Server.new, :at => "/resque"
 
   namespace :api do
