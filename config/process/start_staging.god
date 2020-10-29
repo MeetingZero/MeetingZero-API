@@ -12,5 +12,5 @@ end
 
 God.watch do |w|
   w.name = "resque-pool"
-  w.start = "RAILS_ENV=staging resque-pool"
+  w.start = "RAILS_ENV=staging bundle exec resque-pool"
 end
