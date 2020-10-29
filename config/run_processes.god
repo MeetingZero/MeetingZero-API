@@ -48,9 +48,9 @@ God.watch do |w|
   w.group = "anycable"
   w.interval = 30.seconds
   w.env = { "RAILS_ENV" => rails_env }
-  w.start = "anycable-go --port=8080"
+  w.start = "bundle exec anycable"
 
-  w.pid_file = "#{rails_root}/tmp/pids/anycable-go.pid"
+  w.pid_file = "#{rails_root}/tmp/pids/anycable-rails.pid"
   w.behavior(:clean_pid_file)
 
   # determine the state on startup
