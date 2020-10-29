@@ -7,7 +7,7 @@ God.watch do |w|
   w.group = "resque"
   w.interval = 30.seconds
   w.env = { "RAILS_ENV" => rails_env }
-  w.start = "bundle exec resque-pool -d -o #{rails_root}/log/resque-pool.stdout -e #{rails_root}/log/resque-pool.stderr -p #{rails_root}/tmp/pids/resque-pool.pid"
+  w.start = "bundle exec resque-pool -o #{rails_root}/log/resque-pool.stdout -e #{rails_root}/log/resque-pool.stderr -p #{rails_root}/tmp/pids/resque-pool.pid"
 
   w.pid_file = "#{rails_root}/tmp/pids/resque-pool.pid"
   w.behavior(:clean_pid_file)
