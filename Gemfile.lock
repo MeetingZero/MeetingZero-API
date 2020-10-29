@@ -91,6 +91,7 @@ GEM
     ffi (1.13.1)
     globalid (0.4.2)
       activesupport (>= 4.2.0)
+    god (0.13.7)
     google-protobuf (3.13.0)
     googleapis-common-protos-types (1.0.5)
       google-protobuf (~> 3.11)
@@ -259,6 +260,7 @@ DEPENDENCIES
   bootsnap (>= 1.4.2)
   byebug
   capybara (>= 2.15)
+  god
   jbuilder (~> 2.7)
   jwt
   listen (~> 3.2)
