@@ -23,6 +23,17 @@ class StarVoting
       resource_model_name: @resource_model_name
     )
 
+    # If there are no votes, add empty result
+    if resource_votes.length == 0
+      empty_star_voting_result = StarVotingResult
+      .create(
+        workshop_id: @workshop_id,
+        resource_model_name: @resource_model_name
+      )
+
+      return create_payload(empty_star_voting_result)
+    end
+
     # If there is just 1 vote then it wins
     if resource_votes.length == 1
       winning_resource_vote = resource_votes.first
