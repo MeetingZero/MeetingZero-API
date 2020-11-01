@@ -129,6 +129,7 @@ GEM
     multipart-post (2.1.1)
     mustermann (1.1.1)
       ruby2_keywords (~> 0.0.1)
+    newrelic_rpm (6.13.1)
     nio4r (2.5.2)
     nokogiri (1.10.10)
       mini_portile2 (~> 2.4.0)
@@ -265,6 +266,7 @@ DEPENDENCIES
   jwt
   listen (~> 3.2)
   minitest-reporters
+  newrelic_rpm
   pg
   puma (~> 4.1)
   rack-cors
