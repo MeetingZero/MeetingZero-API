@@ -23,6 +23,24 @@ class WorkshopChannel < ApplicationCable::Channel
       workshop,
       current_workshop_director: workshop_director.as_json(include: [:workshop_stage, :workshop_stage_step])
     )
+
+    workshop_members = WorkshopMember
+    .where(workshop_id: workshop.id)
+    .order(user_id: :desc)
+    .as_json(
+      include: {
+        user: {
+          only: [:first_name, :last_name]
+        }
+      }
+    )
+
+    # Broadcast workshop members to the channel
+    WorkshopChannel
+    .broadcast_to(
+      workshop,
+      workshop_members: workshop_members
+    )
   end
 
   def unsubscribed
@@ -37,5 +55,23 @@ class WorkshopChannel < ApplicationCable::Channel
     )
     .first
     .update(online: false)
+
+    workshop_members = WorkshopMember
+    .where(workshop_id: workshop.id)
+    .order(user_id: :desc)
+    .as_json(
+      include: {
+        user: {
+          only: [:first_name, :last_name]
+        }
+      }
+    )
+
+    # Broadcast workshop members to the channel
+    WorkshopChannel
+    .broadcast_to(
+      workshop,
+      workshop_members: workshop_members
+    )
   end
 end

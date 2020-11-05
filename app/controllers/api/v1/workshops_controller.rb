@@ -131,6 +131,7 @@ class Api::V1::WorkshopsController < ApplicationController
     .where(
       workshop_id: @workshop.id
     )
+    .order(user_id: :desc)
 
     render :json => workshop_members
     .to_json(
