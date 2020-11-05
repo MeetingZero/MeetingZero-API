@@ -13,7 +13,7 @@
 </p>
 
 <p>
-  Please use this workshop ID: <%= @workshop.workshop_token %>
+  <a href="<%= Rails.application.credentials.web_app_url %>/join-workshop?workshop_token=<%= @workshop.workshop_token %>" style="display: block; width: 100%; background-color: #3F4089; padding: 20px; color: #FFF; text-align: center; text-decoration: none; box-sizing: border-box;">Click here to join the workshop</a>
 </p>
 
 <p>
