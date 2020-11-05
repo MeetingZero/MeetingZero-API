@@ -137,7 +137,7 @@ class Api::V1::WorkshopsController < ApplicationController
     .to_json(
       include: {
         user: {
-          only: [:first_name, :last_name]
+          only: [:id, :first_name, :last_name]
         }
       }
     )

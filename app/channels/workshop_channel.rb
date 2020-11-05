@@ -30,7 +30,7 @@ class WorkshopChannel < ApplicationCable::Channel
     .as_json(
       include: {
         user: {
-          only: [:first_name, :last_name]
+          only: [:id, :first_name, :last_name]
         }
       }
     )
@@ -62,7 +62,7 @@ class WorkshopChannel < ApplicationCable::Channel
     .as_json(
       include: {
         user: {
-          only: [:first_name, :last_name]
+          only: [:id, :first_name, :last_name]
         }
       }
     )
