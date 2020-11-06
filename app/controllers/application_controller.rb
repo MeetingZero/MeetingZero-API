@@ -6,12 +6,16 @@ class ApplicationController < ActionController::Base
       return render :json => { auth_token: ["not found"] }, status: 401
     end
 
-    decoded_token = JWT.decode(
-      auth_token,
-      Rails.application.credentials.jwt_secret,
-      true,
-      { algorithm: 'HS256' }
-    )
+    begin
+      decoded_token = JWT.decode(
+        auth_token,
+        Rails.application.credentials.jwt_secret,
+        true,
+        { algorithm: 'HS256' }
+      )
+    rescue JWT::VerificationError
+      return render :json => { auth_token: ["invalid"] }, status: 401
+    end
 
     if !decoded_token
       return render :json => { auth_token: ["invalid"] }, status: 401

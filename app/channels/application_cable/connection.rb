@@ -15,12 +15,16 @@ module ApplicationCable
         return reject_unauthorized_connection
       end
 
-      decoded_token = JWT.decode(
-        auth_token,
-        Rails.application.credentials.jwt_secret,
-        true,
-        { algorithm: 'HS256' }
-      )
+      begin
+        decoded_token = JWT.decode(
+          auth_token,
+          Rails.application.credentials.jwt_secret,
+          true,
+          { algorithm: 'HS256' }
+        )
+      rescue JWT::VerificationError
+        return reject_unauthorized_connection
+      end
 
       if !decoded_token
         return reject_unauthorized_connection
