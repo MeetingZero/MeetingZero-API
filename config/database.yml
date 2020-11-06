@@ -12,7 +12,6 @@ development:
 staging:
   <<: *default
   database: meetingzero_staging
-  username: postgres
   password: Password@1
 
 test:
@@ -22,6 +21,5 @@ test:
 production:
   <<: *default
   database: meetingzero_production
-  username: postgres
   password: <%= Rails.application.credentials.rds_master_password %>
   host: <%= Rails.application.credentials.rds_endpoint %>
