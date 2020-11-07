@@ -115,4 +115,21 @@ class StarVotingTest < ActiveSupport::TestCase
 
     assert_nil(star_voting_results[:runoff_winner])
   end
+
+  # This is an edge case in which at least one user did not vote for both of the top two round 1 winners
+  test "Edge case where user did not vote for round 1 winner" do
+    star_voting = StarVoting.new(5, "ProblemResponse")
+
+    star_voting_results = star_voting.calculate_votes
+
+    assert_equal(
+      1,
+      star_voting_results[:round_1_winner][:resource].id
+    )
+
+    assert_equal(
+      2,
+      star_voting_results[:runoff_winner][:resource].id
+    )
+  end
 end

@@ -119,6 +119,11 @@ class StarVoting
         vote_map[vote.resource_id] = vote.vote_number
       end
 
+      # If the user didn't vote for either of the top two results, skip them
+      if !vote_map[round_1_winners[0][0]] || !vote_map[round_1_winners[1][0]]
+        next
+      end
+
       if vote_map[round_1_winners[0][0]] > vote_map[round_1_winners[1][0]]
         votes.each do |vote|
           # If the user voted higher for the round 1 winner, assign all of their votes to that problem

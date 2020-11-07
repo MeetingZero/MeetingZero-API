@@ -66,3 +66,17 @@ nine:
   resource_model_name: ProblemResponse
   resource_id: 1
   vote_number: 3
+
+ten:
+  workshop_id: 5
+  user_id: 1
+  resource_model_name: ProblemResponse
+  resource_id: 1
+  vote_number: 5
+
+eleven:
+  workshop_id: 5
+  user_id: 2
+  resource_model_name: ProblemResponse
+  resource_id: 2
+  vote_number: 4
