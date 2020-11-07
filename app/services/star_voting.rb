@@ -126,12 +126,12 @@ class StarVoting
 
       if vote_map[round_1_winners[0][0]] > vote_map[round_1_winners[1][0]]
         votes.each do |vote|
-          # If the user voted higher for the round 1 winner, assign all of their votes to that problem
+          # If the user voted higher for the round 1 winner, assign all of their votes to that resource
           runoff_tally[round_1_winners[0][0]] = runoff_tally[round_1_winners[0][0]] + vote.vote_number
         end
       else
         votes.each do |vote|
-          # If the user voted higher for the round 1 runner up, assign all of their votes to that problem
+          # If the user voted higher for the round 1 runner up, assign all of their votes to that resource
           runoff_tally[round_1_winners[1][0]] = runoff_tally[round_1_winners[1][0]] + vote.vote_number
         end
       end
