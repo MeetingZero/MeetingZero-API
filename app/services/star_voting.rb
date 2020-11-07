@@ -119,7 +119,7 @@ class StarVoting
         vote_map[vote.resource_id] = vote.vote_number
       end
 
-      # If the user didn't vote for either of the top two results, skip them
+      # If the user didn't vote for either of the top two results from round 1, skip them
       if !vote_map[round_1_winners[0][0]] || !vote_map[round_1_winners[1][0]]
         next
       end
