@@ -10,6 +10,7 @@ class Api::V1::WhatIsWorkingController < ApplicationController
         workshop_id: @workshop.id,
         user_id: @current_user.id
       )
+      .order(id: :asc)
     else
       what_is_working_records = WhatIsWorkingResponse
       .where(workshop_id: @workshop.id)
@@ -31,6 +32,7 @@ class Api::V1::WhatIsWorkingController < ApplicationController
       workshop_id: @workshop.id,
       user_id: @current_user.id
     )
+    .order(id: :asc)
 
     return render :json => what_is_working_records, status: 201
   end
@@ -45,6 +47,7 @@ class Api::V1::WhatIsWorkingController < ApplicationController
       workshop_id: @workshop.id,
       user_id: @current_user.id
     )
+    .order(id: :asc)
 
     return render :json => what_is_working_records
   end
