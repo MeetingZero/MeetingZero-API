@@ -9,7 +9,6 @@ God.watch do |w|
   w.env = { "RAILS_ENV" => rails_env }
   w.start = "bundle exec resque-pool"
 
-  w.pid_file = "#{rails_root}/tmp/pids/resque-pool.pid"
   w.behavior(:clean_pid_file)
 
   # determine the state on startup
@@ -50,7 +49,6 @@ God.watch do |w|
   w.env = { "RAILS_ENV" => rails_env }
   w.start = "bundle exec anycable"
 
-  w.pid_file = "#{rails_root}/tmp/pids/anycable-rails.pid"
   w.behavior(:clean_pid_file)
 
   # determine the state on startup
@@ -91,7 +89,6 @@ God.watch do |w|
   w.env = { "RAILS_ENV" => rails_env }
   w.start = "anycable-go --port=8080"
 
-  w.pid_file = "#{rails_root}/tmp/pids/anycable-go.pid"
   w.behavior(:clean_pid_file)
 
   # determine the state on startup
