@@ -5,10 +5,7 @@ class Api::V1::WorkshopStageStepReadyController < ApplicationController
 
   def index
     ready_members = WorkshopStageStepReady
-    .where(
-      workshop_id: @workshop.id,
-      workshop_director_id: params[:workshop_director_id]
-    )
+    .get_ready_members(@workshop.id, params[:workshop_director_id])
 
     return render :json => ready_members
   end
@@ -22,10 +19,7 @@ class Api::V1::WorkshopStageStepReadyController < ApplicationController
     )
 
     ready_members = WorkshopStageStepReady
-    .where(
-      workshop_id: @workshop.id,
-      workshop_director_id: params[:workshop_director_id]
-    )
+    .get_ready_members(@workshop.id, params[:workshop_director_id])
 
     # Broadcast ready members to the channel
     WorkshopChannel
@@ -51,10 +45,7 @@ class Api::V1::WorkshopStageStepReadyController < ApplicationController
     end
 
     ready_members = WorkshopStageStepReady
-    .where(
-      workshop_id: @workshop.id,
-      workshop_director_id: params[:workshop_director_id]
-    )
+    .get_ready_members(@workshop.id, params[:workshop_director_id])
 
     # Broadcast ready members to the channel
     WorkshopChannel
