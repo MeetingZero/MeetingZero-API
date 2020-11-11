@@ -9,7 +9,7 @@ class WorkshopStageStepReady < ApplicationRecord
       wm
       .as_json
       .merge!({
-        ready_member: WorkshopStageStepReady
+        ready_workshop_member: WorkshopStageStepReady
         .where(
           workshop_id: workshop_id,
           user_id: wm.user_id,

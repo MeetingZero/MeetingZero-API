@@ -25,7 +25,7 @@ class Api::V1::WorkshopStageStepReadyController < ApplicationController
     WorkshopChannel
     .broadcast_to(
       @workshop,
-      ready_members: ready_members
+      ready_workshop_members: ready_members
     )
 
     return head 201
@@ -51,7 +51,7 @@ class Api::V1::WorkshopStageStepReadyController < ApplicationController
     WorkshopChannel
     .broadcast_to(
       @workshop,
-      ready_members: ready_members
+      ready_workshop_members: ready_members
     )
 
     return head 200
