@@ -5,7 +5,7 @@ class Api::V1::StarVotingResultsController < ApplicationController
 
   def create
     new_star_voting_result = StarVotingResult
-    .create(
+    .find_or_create_by(
       workshop_id: @workshop.id,
       resource_model_name: params[:resource_model_name],
       round_1_runner_up_resource_id: params[:round_1_runner_up_resource_id],
