@@ -264,6 +264,10 @@ class Api::V1::WorkshopsController < ApplicationController
     old_workshop_director = WorkshopDirector
     .get_current(params[:workshop_id])
 
+    if old_workshop_director.workshop_stage_step_id != params[:workshop_stage_step_id]
+      return render :json => { error: ["trying to complete the wrong step"] }, status: 400
+    end
+
     # If this step has already been completed, short circuit
     # This happens at the end of the workshop
     if old_workshop_director.completed == true

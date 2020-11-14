@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_08_13_210947) do
+ActiveRecord::Schema.define(version: 2020_11_11_084428) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -150,6 +150,14 @@ ActiveRecord::Schema.define(version: 2020_08_13_210947) do
     t.integer "user_id"
     t.string "email"
     t.boolean "online", default: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "workshop_stage_step_readies", force: :cascade do |t|
+    t.integer "workshop_id"
+    t.integer "user_id"
+    t.integer "workshop_director_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end

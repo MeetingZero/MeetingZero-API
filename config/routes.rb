@@ -24,6 +24,12 @@ Rails.application.routes.draw do
         get "/summary" => "workshops#summary"
 
         resources :director, controller: :workshop_directors do
+          resources :workshop_stage_step_ready, except: [:destroy] do
+            collection do
+              delete "/" => "workshop_stage_step_ready#destroy"
+            end
+          end
+
           collection do
             get "/current" => "workshop_directors#current"
             put "/add_time_to_current" => "workshop_directors#add_time_to_current"
