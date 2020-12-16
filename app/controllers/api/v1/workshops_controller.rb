@@ -93,6 +93,38 @@ class Api::V1::WorkshopsController < ApplicationController
           user_id: @current_user.id
         )
 
+        # If workshop is created with existing problems, add those
+        if params[:existing_problems]
+          params[:existing_problems].each do |ep|
+            if ep.blank?
+              next
+            end
+            
+            ProblemResponse
+            .create(
+              workshop_id: new_workshop.id,
+              user_id: @current_user.id,
+              response_text: ep
+            )
+          end
+        end
+
+        # If workshop is created with existing solutions, add those
+        if params[:existing_solutions]
+          params[:existing_solutions].each do |es|
+            if es.blank?
+              next
+            end
+
+            SolutionResponse
+            .create(
+              workshop_id: new_workshop.id,
+              user_id: @current_user.id,
+              response_text: es
+            )
+          end
+        end
+
         # Send host their customized workshop email
         WorkshopMailer
         .new_workshop_host(@current_user, new_workshop)
