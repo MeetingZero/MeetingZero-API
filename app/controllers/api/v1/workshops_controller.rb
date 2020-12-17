@@ -20,39 +20,46 @@ class Api::V1::WorkshopsController < ApplicationController
           date_time_planned: params[:date_time_planned]
         )
 
-        workshop_stage_keys = []
+        workshop_stage_step_keys = params[:workshop_stage_step_keys]
 
-        if params[:template]
-          template = WorkshopTemplate
-          .where(key: params[:template])
-          .first
+        # If workshop stage step keys are set, use those
+        if workshop_stage_step_keys
+          workshop_stage_step_keys.each do |workshop_stage_step_key|
+            workshop_stage_step = WorkshopStageStep
+            .where(key: workshop_stage_step_key)
+            .first
 
-          template_stages = WorkshopTemplateStage
-          .where(workshop_template_id: template.id)
+            workshop_stage = WorkshopStage
+            .find(workshop_stage_step.workshop_stage_id)
 
-          template_stages.each do |template_stage|
-            workshop_stage = WorkshopStage.find(template_stage.workshop_stage_id)
-
-            workshop_stage_keys.push(workshop_stage.key)
-          end
-        else
-          workshop_stage_keys = params[:workshop_stage_keys]
-        end
-
-        workshop_stage_keys.each do |workshop_stage_key|
-          workshop_stage = WorkshopStage
-          .where(key: workshop_stage_key)
-          .first
-
-          WorkshopStageStep
-          .where(workshop_stage_id: workshop_stage.id)
-          .each do |workshop_stage_step|
             WorkshopDirector
             .create(
               workshop_id: new_workshop.id,
               workshop_stage_id: workshop_stage.id,
               workshop_stage_step_id: workshop_stage_step.id
             )
+          end
+        end
+
+        workshop_stage_keys = params[:workshop_stage_keys]
+
+        # If workshop stage keys are set, use those
+        if workshop_stage_keys
+          workshop_stage_keys.each do |workshop_stage_key|
+            workshop_stage = WorkshopStage
+            .where(key: workshop_stage_key)
+            .first
+
+            WorkshopStageStep
+            .where(workshop_stage_id: workshop_stage.id)
+            .each do |workshop_stage_step|
+              WorkshopDirector
+              .create(
+                workshop_id: new_workshop.id,
+                workshop_stage_id: workshop_stage.id,
+                workshop_stage_step_id: workshop_stage_step.id
+              )
+            end
           end
         end
 
