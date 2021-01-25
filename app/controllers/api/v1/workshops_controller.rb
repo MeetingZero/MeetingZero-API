@@ -103,32 +103,44 @@ class Api::V1::WorkshopsController < ApplicationController
         # If workshop is created with existing problems, add those
         if params[:existing_problems]
           params[:existing_problems].each do |ep|
-            if ep.blank?
-              next
-            end
-            
-            ProblemResponse
+            existing_problem_response = ProblemResponse
             .create(
               workshop_id: new_workshop.id,
               user_id: @current_user.id,
               response_text: ep
             )
+
+            # If there is only one existing problem, make that the voting winner
+            if params[:existing_problems].length == 1
+              StarVotingResult
+              .create(
+                workshop_id: new_workshop.id,
+                resource_model_name: "ProblemResponse",
+                runoff_winner_resource_id: existing_problem_response.id
+              )
+            end
           end
         end
 
         # If workshop is created with existing solutions, add those
         if params[:existing_solutions]
           params[:existing_solutions].each do |es|
-            if es.blank?
-              next
-            end
-
-            SolutionResponse
+            existing_solution_response = SolutionResponse
             .create(
               workshop_id: new_workshop.id,
               user_id: @current_user.id,
               response_text: es
             )
+
+            # If there is only one existing solution, make that the voting winner
+            if params[:existing_solutions].length == 1
+              StarVotingResult
+              .create(
+                workshop_id: new_workshop.id,
+                resource_model_name: "SolutionResponse",
+                runoff_winner_resource_id: existing_solution_response.id
+              )
+            end
           end
         end
 
