@@ -17,7 +17,8 @@ class Api::V1::WorkshopsController < ApplicationController
         new_workshop = Workshop.create(
           host_id: @current_user.id,
           purpose: params[:purpose],
-          date_time_planned: params[:date_time_planned]
+          date_time_planned: params[:date_time_planned],
+          preparation_instructions: params[:preparation_instructions]
         )
 
         workshop_stage_step_keys = params[:workshop_stage_step_keys]
