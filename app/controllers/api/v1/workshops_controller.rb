@@ -117,7 +117,8 @@ class Api::V1::WorkshopsController < ApplicationController
               .create(
                 workshop_id: new_workshop.id,
                 resource_model_name: "ProblemResponse",
-                runoff_winner_resource_id: existing_problem_response.id
+                runoff_winner_resource_id: existing_problem_response.id,
+                runoff_winner_tally: 5
               )
             end
           end
@@ -139,7 +140,8 @@ class Api::V1::WorkshopsController < ApplicationController
               .create(
                 workshop_id: new_workshop.id,
                 resource_model_name: "SolutionResponse",
-                runoff_winner_resource_id: existing_solution_response.id
+                runoff_winner_resource_id: existing_solution_response.id,
+                runoff_winner_tally: 5
               )
             end
           end
