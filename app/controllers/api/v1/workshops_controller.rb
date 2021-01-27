@@ -131,7 +131,9 @@ class Api::V1::WorkshopsController < ApplicationController
             .create(
               workshop_id: new_workshop.id,
               user_id: @current_user.id,
-              response_text: es
+              response_text: es,
+              average_impact_level: 5,
+              average_effort_level: 1
             )
 
             # If there is only one existing solution, make that the voting winner
