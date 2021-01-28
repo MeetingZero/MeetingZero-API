@@ -17,42 +17,50 @@ class Api::V1::WorkshopsController < ApplicationController
         new_workshop = Workshop.create(
           host_id: @current_user.id,
           purpose: params[:purpose],
-          date_time_planned: params[:date_time_planned]
+          date_time_planned: params[:date_time_planned],
+          preparation_instructions: params[:preparation_instructions]
         )
 
-        workshop_stage_keys = []
+        workshop_stage_step_keys = params[:workshop_stage_step_keys]
 
-        if params[:template]
-          template = WorkshopTemplate
-          .where(key: params[:template])
-          .first
+        # If workshop stage step keys are set, use those
+        if workshop_stage_step_keys
+          workshop_stage_step_keys.each do |workshop_stage_step_key|
+            workshop_stage_step = WorkshopStageStep
+            .where(key: workshop_stage_step_key)
+            .first
 
-          template_stages = WorkshopTemplateStage
-          .where(workshop_template_id: template.id)
+            workshop_stage = WorkshopStage
+            .find(workshop_stage_step.workshop_stage_id)
 
-          template_stages.each do |template_stage|
-            workshop_stage = WorkshopStage.find(template_stage.workshop_stage_id)
-
-            workshop_stage_keys.push(workshop_stage.key)
-          end
-        else
-          workshop_stage_keys = params[:workshop_stage_keys]
-        end
-
-        workshop_stage_keys.each do |workshop_stage_key|
-          workshop_stage = WorkshopStage
-          .where(key: workshop_stage_key)
-          .first
-
-          WorkshopStageStep
-          .where(workshop_stage_id: workshop_stage.id)
-          .each do |workshop_stage_step|
             WorkshopDirector
             .create(
               workshop_id: new_workshop.id,
               workshop_stage_id: workshop_stage.id,
               workshop_stage_step_id: workshop_stage_step.id
             )
+          end
+        end
+
+        workshop_stage_keys = params[:workshop_stage_keys]
+
+        # If workshop stage keys are set, use those
+        if workshop_stage_keys
+          workshop_stage_keys.each do |workshop_stage_key|
+            workshop_stage = WorkshopStage
+            .where(key: workshop_stage_key)
+            .first
+
+            WorkshopStageStep
+            .where(workshop_stage_id: workshop_stage.id)
+            .each do |workshop_stage_step|
+              WorkshopDirector
+              .create(
+                workshop_id: new_workshop.id,
+                workshop_stage_id: workshop_stage.id,
+                workshop_stage_step_id: workshop_stage_step.id
+              )
+            end
           end
         end
 
@@ -93,6 +101,54 @@ class Api::V1::WorkshopsController < ApplicationController
           user_id: @current_user.id
         )
 
+        # If workshop is created with existing problems, add those
+        if params[:existing_problems]
+          params[:existing_problems].each do |ep|
+            existing_problem_response = ProblemResponse
+            .create(
+              workshop_id: new_workshop.id,
+              user_id: @current_user.id,
+              response_text: ep
+            )
+
+            # If there is only one existing problem, make that the voting winner
+            if params[:existing_problems].length == 1
+              StarVotingResult
+              .create(
+                workshop_id: new_workshop.id,
+                resource_model_name: "ProblemResponse",
+                runoff_winner_resource_id: existing_problem_response.id,
+                runoff_winner_tally: 5
+              )
+            end
+          end
+        end
+
+        # If workshop is created with existing solutions, add those
+        if params[:existing_solutions]
+          params[:existing_solutions].each do |es|
+            existing_solution_response = SolutionResponse
+            .create(
+              workshop_id: new_workshop.id,
+              user_id: @current_user.id,
+              response_text: es,
+              average_impact_level: 5,
+              average_effort_level: 1
+            )
+
+            # If there is only one existing solution, make that the voting winner
+            if params[:existing_solutions].length == 1
+              StarVotingResult
+              .create(
+                workshop_id: new_workshop.id,
+                resource_model_name: "SolutionResponse",
+                runoff_winner_resource_id: existing_solution_response.id,
+                runoff_winner_tally: 5
+              )
+            end
+          end
+        end
+
         # Send host their customized workshop email
         WorkshopMailer
         .new_workshop_host(@current_user, new_workshop)
@@ -119,8 +175,13 @@ class Api::V1::WorkshopsController < ApplicationController
     end
 
     # Add total time of workshop to payload
+    workshop_directors = WorkshopDirector
+    .where(workshop_id: workshop["id"])
+
     workshop.merge!({
-      total_time: WorkshopStageStep.all.sum(:default_time_limit)
+      total_time: WorkshopStageStep
+      .where(id: workshop_directors.map{ |wd| wd.workshop_stage_step_id })
+      .sum(:default_time_limit)
     })
 
     return render :json => workshop
