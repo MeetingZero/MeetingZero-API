@@ -175,8 +175,13 @@ class Api::V1::WorkshopsController < ApplicationController
     end
 
     # Add total time of workshop to payload
+    workshop_directors = WorkshopDirector
+    .where(workshop_id: workshop["id"])
+
     workshop.merge!({
-      total_time: WorkshopStageStep.all.sum(:default_time_limit)
+      total_time: WorkshopStageStep
+      .where(id: workshop_directors.map{ |wd| wd.workshop_stage_step_id })
+      .sum(:default_time_limit)
     })
 
     return render :json => workshop
